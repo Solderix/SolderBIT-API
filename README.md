@@ -28,10 +28,26 @@ Nakon prebacivanja koda potrebno je spojiti micro:bit na računali i pritismuti 
 
 Uz kit za autić i daljinski upravljač dolazi i mikroupravljač sličan micro:bit-u. Upravljač nudi korisnicima veću programsku memoriju i bolju konfiguraciju pinova, no za razliku od micro:bit-a potrebno je uložiti malo više vremena kako bi se radno okruženje za programiranje postavilo. 
 
-## Instalacija Pythona
+## Instalacija Python-a
 Pošto SolderBIT koristi Micropython kao svoj programski jezik, potrebno je omogućiti da račualo korišteno za programiranje podržava isti. Povezica za skidanje posljednje verzije Pythona nalazi se [ovdje](https://www.python.org/downloads/). Prilikom instalacije potrebno je kliknuti na kvačicu "Add Python to PATH" kako bi se Python mogao koristiti s bilo koje lokacije na računalu. Pratiti upute unutar programa za instalaciju.
 
 ![alt_text](images/python_install.jpg)
+
+## Instalacija Adafruit-ampy
+Nakon instalacije potrebno je instalirati ampy (Adafruit MicroPYthon). Ovaj Python ekstenzija se koristi za prebacivanje napisanog koda s računala na SolderBIT. Prvo je potrebno otvoriti upravljačku konzolu operativnog sustava na računalu. Ovaj korak varira ovisno o operativnom sustavu, no uglavnom je postupak slučan. U ovom primjeru će se pokazati kako se to radi na Windows 11. Potrebno je pritisnuti na Windows Start ikonu te u pretraživać utipkati "Terminal" ili "Powershell".
+
+![alt_text](images/terminal.png)
+
+Otvara se crni prozor unutar kojega je potrebno upisati sljedeću liniju:
+
+```
+pip install adafruit-ampy
+```
+
+Pričekati da se instalira. U slučaju da je potrebno više informacije vezano uz adafruit-ampy kliknuti na sljedeći [link](https://pypi.org/project/adafruit-ampy/).
+
+## Pisanje koda
+Kao što je već navedeno, kod se piše u Python-u. Sav programski kod za autić u daljinski upravljač moguće je pronaći u repozitoriju na ovom [linku](solderbit). Kako bi napisali vlastiti kod potrebno je napraviti datoteku `main.py` te unutar nje napisati željeni kod. Sintaxa pisanja identična je Micropythonu za micro:bit uz par izuzetaka. Pisanje programskog koda se vrši u 
 
 
 
