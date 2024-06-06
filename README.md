@@ -24,6 +24,16 @@ Nakon prebacivanja koda potrebno je spojiti micro:bit na računali i pritismuti 
  
 ![alt_text](images/12345.png)
 
+# SolderBIT
+
+Uz kit za autić i daljinski upravljač dolazi i mikroupravljač sličan micro:bit-u. Upravljač nudi korisnicima veću programsku memoriju i bolju konfiguraciju pinova, no za razliku od micro:bit-a potrebno je uložiti malo više vremena kako bi se radno okruženje za programiranje postavilo. 
+
+## Instalacija Pythona
+Pošto SolderBIT koristi Micropython kao svoj programski jezik, potrebno je omogućiti da račualo korišteno za programiranje podržava isti. Povezica za skidanje posljednje verzije Pythona nalazi se [ovdje](https://www.python.org/downloads/). Prilikom instalacije potrebno je kliknuti na kvačicu "Add Python to PATH" kako bi se Python mogao koristiti s bilo koje lokacije na računalu.
+
+![alt_text](images/12345.png)
+
+
 
 
 
