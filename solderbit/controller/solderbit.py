@@ -119,7 +119,7 @@ class MicroBitTouchPin():
     def is_touched(self):
         return True if self.touch_pin.read() < 20 else False
        
-pin0 = MicroBitPin(17) #6 change to on new
+pin0 = MicroBitPin(6) #6 change to on new
 pin1 = MicroBitPin(10)
 pin2 = MicroBitPin(2)
 pin3 = MicroBitPin(18)
@@ -130,7 +130,7 @@ pin7 = MicroBitPin(11)
 pin8 = MicroBitPin(9)
 pin9 = MicroBitPin(8)
 pin10 = MicroBitPin(7)
-pin11 = MicroBitPin(6) #17 change to on new
+pin11 = MicroBitPin(17) #17 change to on new
 pin12 = MicroBitPin(5)
 pin13 = MicroBitPin(36)
 pin14 = MicroBitPin(37)
