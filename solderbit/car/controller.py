@@ -145,13 +145,13 @@ def init():
 def read_input(input, offset=True):
     pin = None
     value = input[0]&1
-    pin5.write_digital(value);
+    pin15.write_digital(value);
 
     value = (input[0]>>1)&1
     pin8.write_digital(value);
 
     value = (input[0]>>2)&1
-    pin11.write_digital(value);
+    pin16.write_digital(value);
 
     value = (input[0]>>3)&1
     sleep(1) #give some time for the mux to change channel
