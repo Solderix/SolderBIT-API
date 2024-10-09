@@ -47,7 +47,7 @@ pip install adafruit-ampy
 Pričekati da se instalira. U slučaju da je potrebno više informacije vezano uz adafruit-ampy kliknuti na sljedeći [link](https://pypi.org/project/adafruit-ampy/).
 
 ## Pisanje koda
-Kao što je već navedeno, kod se piše u Python-u. Sav programski kod za autić u daljinski upravljač moguće je pronaći u repozitoriju na ovom [linku](solderbit). Kako bi napisali vlastiti kod potrebno je napraviti datoteku `main.py` te unutar nje napisati željeni kod. Sintaxa pisanja identična je Micropythonu za micro:bit uz par izuzetaka. Pisanje programskog koda se vrši u 
+Kao što je već navedeno, kod se piše u Python-u. Sav programski kod za autić u daljinski upravljač moguće je pronaći u repozitoriju na ovom [linku](solderbit). Kako bi napisali vlastiti kod potrebno je napraviti datoteku `main.py` te unutar nje napisati željeni kod. Sintaxa pisanja identična je Micropythonu za micro:bit uz par izuzetaka. Pisanje programskog koda se vrši u uređivači teksta po izboru (VS Code, Notepad, Notepad++, .
 
 
 
