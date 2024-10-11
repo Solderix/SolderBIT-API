@@ -95,7 +95,7 @@ class MicroBitPin:
     def get_mode(self):
         return self.mode
         
-    def write_analog(self, value):
+    def write_analog(self, value, freq=1000):
         if self.pin == None:
             self.pin = machine.PWM(machine.Pin(self.pin_num, machine.Pin.OUT))
             self.mode = 2
@@ -103,6 +103,7 @@ class MicroBitPin:
         if self.mode != 2:
             return 
         self.pin.duty(value)
+        self.pin.freq(freq)
         return
 
     def read_analog(self):

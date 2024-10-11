@@ -17,6 +17,8 @@ MOTOR_ON = const(1)
 _ACCELERATION_RATE = 1.0
 _SPEED_MAX = 1.0
 
+_buzz = pin8
+
 def _constrain(val, min_val, max_val) -> int:
     return min(max_val, max(min_val, val))
 
@@ -81,8 +83,8 @@ def move(x,y, delay=0):
     while duration > running_time() or first_loop == True:
         delta_regulator = lambda d_curr,d_prev: abs(1.3-abs((d_curr-d_prev)/1000.0))
         
-        _vertical_direction = ((_vertical_direction*(1.0-_ACCELERATION_RATE)) + (y*delta_regulator(y,_vertical_direction)*(_ACCELERATION_RATE))) 
-        _horizontal_direction = ((_horizontal_direction*0.3) + (x*delta_regulator(x,_horizontal_direction)*0.7)) 
+        _vertical_direction = ((_vertical_direction*(1.0-_ACCELERATION_RATE)) + (x*delta_regulator(x,_vertical_direction)*(_ACCELERATION_RATE))) 
+        _horizontal_direction = ((_horizontal_direction*0.3) + (y*delta_regulator(y,_horizontal_direction)*0.7)) 
 
         motor_a = int(_constrain(_vertical_direction - _horizontal_direction, -1000, 1000))
         motor_b = int(_constrain(_vertical_direction + _horizontal_direction, -1000, 1000))
@@ -96,9 +98,9 @@ def move(x,y, delay=0):
     return motor_a, motor_b
 
 
-def set_outputs(connect=None, off=None, buzzer=None, position=None, blinker_right=None, blinker_left=None, brake_light=None, beams=None):
+def set_outputs(connect=None, l6=None, l5=None, l4=None, l3=None, l2=None, l1=None, l0=None):
     global _shift_output
-    values = [connect, off, buzzer, position, blinker_right, blinker_left, brake_light, beams]
+    values = [connect, l6, l5, l4, l3, l2, l1,l0]
 
     clock = pin0
     data = pin1
@@ -124,6 +126,22 @@ def set_outputs(connect=None, off=None, buzzer=None, position=None, blinker_righ
 
     data.write_digital(0)
 
+
+_horn_prev = 0
+_buzzcnt=1
+def horn(on=0):
+    global _horn_prev
+    global _buzzcnt
+    
+    if running_time() < _horn_prev:
+        return
+     
+    _horn_prev = running_time() + 10
+    if on != 0:
+        _buzzcnt = (1+_buzzcnt*2)%30 
+        _buzz.write_analog(20, (500+_buzzcnt))
+    else:
+        _buzz.write_analog(0, 1000)
 
 
 def get_output(input: str=None):

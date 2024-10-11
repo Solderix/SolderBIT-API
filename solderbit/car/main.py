@@ -15,7 +15,9 @@ while True:
     data = controller.data_decode(radio.receive_bytes())
 
     if data != None:
-        vehicle.move(data[2], data[1])
+        x = controller.inputs.JOY_X2[0]
+        y = controller.inputs.JOY_X2[0]
+        vehicle.move(data[x], data[y])
 
     if radio.connection() == False:
         vehicle.move(0, 0)
