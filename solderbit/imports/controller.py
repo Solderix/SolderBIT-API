@@ -1,4 +1,4 @@
-from solderbit import *
+from microbit import *
 import struct
 import ssd1306
 from micropython import const
@@ -253,9 +253,9 @@ def show_devices(devices):
         idx %= num_of_devs
         _print_device(devices[idx%len(devices)], idx, num_of_devs)
 
-        if power_button.read_digital() == True:
+        if power_button.read_digital() == False:
             sleep(250)
-            while power_button.read_digital() == True:
+            while power_button.read_digital() == False:
                 pass
             device_id = idx
             idx = 0
@@ -317,7 +317,7 @@ def power_down():
     global _time_next_2
     global _cycles_2
 
-    if power_button.read_digital() == False:
+    if power_button.read_digital() == True:
         _cycles_2 = 0
         _time_next_2 = running_time() + 1000
 
@@ -329,7 +329,7 @@ def power_down():
             text_x_center("Turning off", 20) 
             text_x_center("Release Button", 40)       
             oled.show()
-            while power_button.read_digital() == True:
+            while power_button.read_digital() == False:
                 pass
             off_button.write_digital(1)
 

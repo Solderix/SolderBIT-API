@@ -111,7 +111,7 @@ class MicroBitPin:
             self.pin = machine.ADC(self.pin_num, atten=machine.ADC.ATTN_11DB)
             self.mode = 1
         
-        return self.pin.read_u16()
+        return (self.pin.read_u16() >> 6)   #Scales 16bit value to 10bit value
 
 class MicroBitTouchPin():
     def __init__(self, pin_num):
@@ -120,7 +120,7 @@ class MicroBitTouchPin():
     def is_touched(self):
         return True if self.touch_pin.read() < 20 else False
        
-pin0 = MicroBitPin(6) #6 change to on new
+pin0 = MicroBitPin(6)
 pin1 = MicroBitPin(10)
 pin2 = MicroBitPin(2)
 pin3 = MicroBitPin(18)
@@ -131,7 +131,7 @@ pin7 = MicroBitPin(11)
 pin8 = MicroBitPin(9)
 pin9 = MicroBitPin(8)
 pin10 = MicroBitPin(7)
-pin11 = MicroBitPin(17) #17 change to on new
+pin11 = MicroBitPin(17) 
 pin12 = MicroBitPin(5)
 pin13 = MicroBitPin(36)
 pin14 = MicroBitPin(37)
@@ -227,8 +227,8 @@ def reset():
     machine.reset()
 
 
-device = 0x53
-regAddress = 0x32
+device = 0b1001100
+regAddress = 0x0D
 TO_READ = 6
 buff = bytearray(6)
 in_range = lambda val,base,offset: ((base-offset) <= val <= (base+offset))
@@ -240,12 +240,8 @@ class ADXL345:
         self.gesture = "face up"
         self.gesture_list = []
         b = bytearray(1)
-        b[0] = 0
-        self.i2c.writeto_mem(self.addr,0x2d,b)
-        b[0] = 16
-        self.i2c.writeto_mem(self.addr,0x2d,b)
-        b[0] = 8
-        self.i2c.writeto_mem(self.addr,0x2d,b)
+        b[0] = 0b00000001
+        self.i2c.writeto_mem(self.addr,0x07,b)
 
     def get_x(self):
         buff = self.i2c.readfrom_mem(self.addr,regAddress,TO_READ)
@@ -328,7 +324,7 @@ class Compass:
 
 class SolderI2C:
     def __init__(self,sda,scl) -> None:
-        self.i2c = machine.I2C(1, sda=machine.Pin(sda), scl=machine.Pin(scl))
+        self.i2c = machine.I2C(1, sda=machine.Pin(sda, machine.Pin.OUT, machine.Pin.PULL_UP), scl=machine.Pin(scl, machine.Pin.OUT, machine.Pin.PULL_UP))
         pass
 
     def read(self, addr, n, repeat=False):
@@ -413,10 +409,14 @@ ALL_ARROWS = [ARROW_N, ARROW_NE,ARROW_E,ARROW_SE,ARROW_S,ARROW_SW,ARROW_W,ARROW_
 
 i2c_accel = machine.I2C(0, sda=machine.Pin(21), scl=machine.Pin(38))
 
-#accel = ADXL345(i2c_accel, device)
+try:
+    accelerometer = ADXL345(i2c_accel, device)
+except:
+    print("Accelerometer not found!")
+
 accel_int = machine.Pin(48, machine.Pin.IN, machine.Pin.PULL_UP)
 compass = Compass()
 
 i2c = SolderI2C(3,4)
-uart = machine.UART(0)
+#uart = machine.UART(0)
 

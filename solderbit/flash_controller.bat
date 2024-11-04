@@ -1,7 +1,7 @@
 set ampy_port=COM29
 
-echo solderbit.by
-ampy -p %ampy_port% put .\imports\solderbit.py
+echo microbit.by
+ampy -p %ampy_port% put .\imports\microbit.py
 echo controller.by
 ampy -p %ampy_port% put .\imports\controller.py
 echo radio.by

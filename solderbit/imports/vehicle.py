@@ -1,7 +1,6 @@
 from micropython import const
-from solderbit import *
+from microbit import *
 
-_engine_started = False
 _vertical_direction = 0
 _horizontal_direction = 0
 _shift_output = 0b00000000
@@ -23,25 +22,6 @@ def _constrain(val, min_val, max_val) -> int:
     return min(max_val, max(min_val, val))
 
 
-def _get_sign(value):
-    if value < 0:
-        return True
-    else:
-        return False
-
-
-def engine_stop():
-    global _engine_started
-    _engine_started = False
-    return
-
-
-def engine_start():
-    global _engine_started
-    _engine_started = True
-    return
-
-
 def set_acceleration(acceleeration):
     global _ACCELERATION_RATE
     if(acceleeration > 1.0):
@@ -59,13 +39,10 @@ def set_speed(speed):
 
 
 def move(x,y, delay=0):
-    if _engine_started is False:
-        return
-    
     global _vertical_direction
     global _horizontal_direction
 
-    limits = 6000
+    limits = 35
 
     if x < limits and x > -limits:
         x = 0
@@ -73,8 +50,8 @@ def move(x,y, delay=0):
     if y < limits and y > -limits:
         y = 0
 
-    x = scale(x, (-65535, 65535), (-2000*_SPEED_MAX, 2000*_SPEED_MAX))
-    y = scale(y, (-65535, 65535), (-2000*_SPEED_MAX, 2000*_SPEED_MAX))
+    x = scale(x, (-1023, 1023), (-2000*_SPEED_MAX, 2000*_SPEED_MAX))
+    y = scale(y, (-1023, 1023), (-2000*_SPEED_MAX, 2000*_SPEED_MAX))
     
     duration = running_time() + delay
     first_loop = True
@@ -89,10 +66,10 @@ def move(x,y, delay=0):
         motor_a = int(_constrain(_vertical_direction - _horizontal_direction, -1000, 1000))
         motor_b = int(_constrain(_vertical_direction + _horizontal_direction, -1000, 1000))
 
-        MOT_A_BACK.write_analog(MOTOR_OFF if _get_sign(motor_a) else  abs(motor_a))
-        MOT_A_FRONT.write_analog(abs(motor_a) if _get_sign(motor_a) else  MOTOR_OFF) 
-        MOT_B_BACK.write_analog(MOTOR_OFF if _get_sign(motor_b) else  abs(motor_b))
-        MOT_B_FRONT.write_analog(abs(motor_b) if _get_sign(motor_b) else  MOTOR_OFF)
+        MOT_A_BACK.write_analog(MOTOR_OFF if (motor_a < 0) else  abs(motor_a))
+        MOT_A_FRONT.write_analog(abs(motor_a) if (motor_a < 0) else  MOTOR_OFF) 
+        MOT_B_BACK.write_analog(MOTOR_OFF if (motor_b < 0) else  abs(motor_b))
+        MOT_B_FRONT.write_analog(abs(motor_b) if (motor_b < 0) else  MOTOR_OFF)
         first_loop = False
 
     return motor_a, motor_b
