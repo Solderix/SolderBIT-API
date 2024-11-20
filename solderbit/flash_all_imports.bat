@@ -1,4 +1,4 @@
-set ampy_port=COM29
+set ampy_port=COM34
 
 echo Removing all imports from solder:bit...
 ampy -p %ampy_port% rmdir ./

@@ -328,13 +328,24 @@ class SolderI2C:
         pass
 
     def read(self, addr, n, repeat=False):
-        return self.i2c.readfrom(addr,n,repeat)
+        try:
+            return self.i2c.readfrom(addr,n,repeat)
+        except:
+            print("I2C failed")
+            return 0
 
     def write(self, addr, buf, repeat=False):
-        self.i2c.writeto(addr,buf,repeat)
+        try:
+            self.i2c.writeto(addr,buf,repeat)
+        except:
+            print("I2C failed")
 
     def scan(self):
-        return self.i2c.scan()
+        try:
+            return self.i2c.scan()
+        except:
+            print("I2C failed")
+            return 0
 
 
 button_a = ButtonWrapper(15).attach_interrupt()

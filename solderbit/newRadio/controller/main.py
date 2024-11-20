@@ -2,8 +2,6 @@ from microbit import *
 import radio
 import controller
 
-controller.init()
-
 group = 5
 
 radio.config(group=group)
@@ -17,8 +15,8 @@ while True:
 
     inputs = controller.read_all_inputs()
     data = controller.read_encoded()
-    right = inputs[controller.inputs.R1_BTN[0]]
-    left = inputs[controller.inputs.L1_BTN[0]]
+    right = inputs[controller.R1_BTN]
+    left = inputs[controller.L1_BTN]
     if right == True:
         group += 1
         radio.config(group=group)

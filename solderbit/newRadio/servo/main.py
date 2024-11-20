@@ -2,6 +2,7 @@ from microbit import *
 import radio
 import vehicle
 import srt as controller
+import servo
 
 radio.config(group=6)
 radio.on()   
@@ -14,13 +15,17 @@ _check_period = 250
 
 while True:
     data = controller.data_decode(radio.receive_bytes())
-    
+
     if data != None:
         print(data)
         x = data[controller.JOY_X2]
         y = data[controller.JOY_Y1]
+        if x < 100 and x > -100:
+            x = 0
+        servo.turn(3, scale(x, (-500, 500), (60,110)), True)
         _next_check = running_time() + _check_period
-        vehicle.move(x, y)
+        vehicle.move(0, y)
 
     if _next_check < running_time():
+        servo.turn(3, scale(0, (-500, 500), (60,110)), True)
         vehicle.move(0, 0)

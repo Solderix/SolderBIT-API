@@ -1,7 +1,6 @@
 from microbit import *
 import struct
 import ssd1306
-from micropython import const
 
 epd_bitmap_BOOT_SCREEN = bytearray([
     0x00, 0x00, 0xc0, 0xe0, 0xf0, 0xf0, 0x70, 0x70, 0x70, 0xf0, 0xf0, 0xe0, 0x40, 0x00, 0x00, 0x00, 
@@ -70,7 +69,7 @@ epd_bitmap_BOOT_SCREEN = bytearray([
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 ])
 
-_CONTROLLER_DATA_ID = const(0x1234)
+_CONTROLLER_DATA_ID = 0x1234
 _controller_data_format = "4hi"
 
 _J1X_OFFSET = 0
@@ -82,78 +81,46 @@ _offsets = []
 power_button = pin2
 off_button = pin14
 
-class Inputs():
-    JOY_X1 = (0b0000, True)
-    JOY_Y1 = (0b0001, True)
-    JOY_X2 = (0b0010, True)
-    JOY_Y2 = (0b0011, True)
-    JOY1_BTN = (0b0100, False)
-    JOY2_BTN = (0b0101, False)
-    R1_BTN = (0b0110, False)
-    L1_BTN = (0b0111, False)
-    LEFT_UP_BTN = (0b1000, False)
-    LEFT_DOWN_BTN = (0b1001, False)
-    LEFT_RIGHT_BTN = (0b1010, False)
-    LEFT_LEFT_BTN = (0b1011, False)
-    RIGHT_UP_BTN = (0b1100, False)
-    RIGHT_DOWN_BTN = (0b1101, False)
-    RIGHT_RIGHT_BTN = (0b1110, False)
-    RIGHT_LEFT_BTN = (0b1111, False)
-    controller_inputs = [JOY_X1, JOY_Y1, JOY_X2, JOY_Y2, JOY1_BTN, JOY2_BTN, R1_BTN, L1_BTN, LEFT_UP_BTN, LEFT_DOWN_BTN, LEFT_RIGHT_BTN, LEFT_LEFT_BTN, RIGHT_UP_BTN, RIGHT_DOWN_BTN, RIGHT_RIGHT_BTN, RIGHT_LEFT_BTN]
-
-inputs = Inputs()
+JOY_X1 = 0b0000
+JOY_Y1 = 0b0001
+JOY_X2 = 0b0010
+JOY_Y2 = 0b0011
+JOY1_BTN = 0b0100
+JOY2_BTN = 0b0101
+R1_BTN = 0b0110
+L1_BTN = 0b0111
+LEFT_UP_BTN = 0b1000
+LEFT_DOWN_BTN = 0b1001
+LEFT_RIGHT_BTN = 0b1010
+LEFT_LEFT_BTN = 0b1011
+RIGHT_UP_BTN = 0b1100
+RIGHT_DOWN_BTN = 0b1101
+RIGHT_RIGHT_BTN = 0b1110
+RIGHT_LEFT_BTN = 0b1111
 
 oled_width = 128
 oled_height = 64
-oled = ssd1306.SSD1306_I2C(oled_width, oled_height, i2c.i2c)
+
+try:
+    oled = ssd1306.SSD1306_I2C(oled_width, oled_height, i2c.i2c)
+except:
+    print("No OLED on device!")
 
 _buzzer_plus = pin15
 _buzzer_minus = pin16
 
-
-def _constrain(val, min_val, max_val) -> int:
-    return min(max_val, max(min_val, val))
-
-
-def init():
-    global _J1X_OFFSET
-    global _J1Y_OFFSET
-    global _J2X_OFFSET
-    global _J2Y_OFFSET
-    global _offsets
-    
-    for num in range(10):
-        _J1X_OFFSET = _J1X_OFFSET + read_input(inputs.JOY_X1, False)
-        _J1Y_OFFSET = _J1Y_OFFSET + read_input(inputs.JOY_Y1, False)
-        _J2X_OFFSET = _J2X_OFFSET + read_input(inputs.JOY_X2, False)
-        _J2Y_OFFSET = _J2Y_OFFSET + read_input(inputs.JOY_Y2, False)
-
-    _J1X_OFFSET = int(_J1X_OFFSET/10)
-    _J1Y_OFFSET = int(_J1Y_OFFSET/10)
-    _J2X_OFFSET = int(_J2X_OFFSET/10)
-    _J2Y_OFFSET = int(_J2Y_OFFSET/10)
-
-    _offsets.append(_J1X_OFFSET)
-    _offsets.append(_J1Y_OFFSET)
-    _offsets.append(_J2X_OFFSET)
-    _offsets.append(_J2Y_OFFSET)
-
-    oled.bitmap(epd_bitmap_BOOT_SCREEN, 0, 0,128,64)
-    oled.show()
-    sleep(1850)
-
 def read_input(input, offset=True):
     pin = None
-    value = input[0]&1
+    value = input&1
     pin15.write_digital(value);
 
-    value = (input[0]>>1)&1
+    value = (input>>1)&1
     pin8.write_digital(value);
 
-    value = (input[0]>>2)&1
+    value = (input>>2)&1
     pin16.write_digital(value);
 
-    value = (input[0]>>3)&1
+    value = (input>>3)&1
     sleep(1) #give some time for the mux to change channel
 
     if value == 0:
@@ -161,19 +128,43 @@ def read_input(input, offset=True):
     else:
         pin = pin1
     
-    if input[1] == False:
+    if input > 3:
         value =  not pin.read_digital()
     else:
-        value = pin.read_analog() if offset is False else (int(pin.read_analog()) - _offsets[input[0]&3])
-        value = _constrain(value, -65534>>1, 65534>>1)
+        value = pin.read_analog() if offset is False else (int(pin.read_analog()) - _offsets[input&3])
+        value = min(1023>>1, max(-1023>>1, value))
 
     return value
+
+
+for num in range(10):
+    _J1X_OFFSET = _J1X_OFFSET + read_input(JOY_X1, False)
+    _J1Y_OFFSET = _J1Y_OFFSET + read_input(JOY_Y1, False)
+    _J2X_OFFSET = _J2X_OFFSET + read_input(JOY_X2, False)
+    _J2Y_OFFSET = _J2Y_OFFSET + read_input(JOY_Y2, False)
+
+_J1X_OFFSET = int(_J1X_OFFSET/10)
+_J1Y_OFFSET = int(_J1Y_OFFSET/10)
+_J2X_OFFSET = int(_J2X_OFFSET/10)
+_J2Y_OFFSET = int(_J2Y_OFFSET/10)
+
+_offsets.append(_J1X_OFFSET)
+_offsets.append(_J1Y_OFFSET)
+_offsets.append(_J2X_OFFSET)
+_offsets.append(_J2Y_OFFSET)
+
+try:
+    oled.bitmap(epd_bitmap_BOOT_SCREEN, 0, 0,128,64)
+    oled.show()
+    sleep(1850)
+except:
+    print("Skipping logo")
     
 
 def read_all_inputs():
     output = []
-    for inputa in inputs.controller_inputs:
-        output.append(read_input(inputa))
+    for input in range(16):
+        output.append(read_input(input))
     return output
 
 
@@ -181,9 +172,12 @@ def read_encoded():
     output = bytearray()
     data_tmp = read_all_inputs()
     data = data_tmp[0:4]
-    bools = _pack_bools(data_tmp)
+    bools = 0
+    for idx, value in enumerate(data_tmp[4:]):
+        bools |= value<<idx 
     data.append(bools)
     output = struct.pack(_controller_data_format, *data)
+    print(data_tmp)
     return output
 
 
@@ -193,22 +187,14 @@ def data_decode(data):
     
     data = list(struct.unpack(_controller_data_format, data))
     decoded_data = data[0:4]
-    decoded_data += _unpack_bools(data[4])
-    return decoded_data
 
-
-def _pack_bools(data) -> int:
-    output = 0
-    for idx, value in enumerate(data[4:]):
-        output |= value<<idx 
-    return output 
-
-
-def _unpack_bools(data):
     output = []
     for num in range(12):
-        output.append(bool((data>>num)&1))
-    return output 
+        output.append(bool((data[4]>>num)&1))
+
+    decoded_data += output
+
+    return decoded_data
 
 
 def text_x_center(string, y):
@@ -238,16 +224,16 @@ def show_devices(devices):
     try:
         idx %= num_of_devs
 
-        if read_input(inputs.L1_BTN) == True and prev_press == 0:
+        if read_input(L1_BTN) == True and prev_press == 0:
             idx -= 1
             prev_press = 1
-        elif read_input(inputs.L1_BTN) == False and prev_press == 1:
+        elif read_input(L1_BTN) == False and prev_press == 1:
             prev_press = 0
 
-        if read_input(inputs.R1_BTN) == True and prev_press == 0:
+        if read_input(R1_BTN) == True and prev_press == 0:
             idx += 1
             prev_press = 2
-        elif read_input(inputs.R1_BTN) == False and prev_press == 2:
+        elif read_input(R1_BTN) == False and prev_press == 2:
             prev_press = 0
 
         idx %= num_of_devs
