@@ -22,6 +22,5 @@ def controller_logic():
             radio.disconnect()
         sleep(100)
 
-controller.init()
 while True:
     controller_logic()

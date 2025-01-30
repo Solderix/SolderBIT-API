@@ -7,7 +7,8 @@ import espnow
 _bpeer = b'\xff' * 6
 _group = 0
 _sta = network.WLAN(network.STA_IF)
-_e = None
+_e = espnow.ESPNow()
+_e.active(True)
 
 connected_led = machine.Pin(CONNECTED_PIN, machine.Pin.OUT)
 connected_led.off()
@@ -15,6 +16,8 @@ connected_led.off()
 _esp_buffer = []
 _esp_buffer_max = 5
 _esp_buffer_counter = 0
+
+mac_base = b'\x1a\x2b\x3c\x4e\x5f'  
 
 def _recv_cb(e):
     global _esp_buffer_counter
@@ -26,19 +29,30 @@ def _recv_cb(e):
         if data == None:
             return
     
-        if data[0] == _group and _esp_buffer_counter < _esp_buffer_max:
+        if _esp_buffer_counter < _esp_buffer_max:
             _esp_buffer_counter += 1
-            _esp_buffer.append(data[1:])
+            _esp_buffer.append(data)
 
 def on():
    global _sta
    global _e
-    
+   global _group
+   
+   group_mac = bytearray(mac_base)
+   group_mac.append(_group)
+   mac = bytes(group_mac)
+
    _sta.active(True)
-   _e = espnow.ESPNow()
    _e.active(True)
-   _e.add_peer(_bpeer) 
+   _sta.config(mac=mac)
+
+   for peer in _e.get_peers():
+       _e.del_peer(peer[0])
+
+   _e.add_peer(mac) 
    _e.irq(_recv_cb)
+
+   print('Peers:', _e.get_peers())
 
 def off():
     global _sta
@@ -50,7 +64,16 @@ def off():
 
 def config(length=32, queue=3, channel=7, power=6, address=0x75626974, group=0, data_rate=0):
     global _group
+    global _e
     _group = group
+    
+    for peer in _e.get_peers():
+       _e.del_peer(peer[0])
+
+    group_mac = bytearray(mac_base)
+    group_mac.append(_group)
+    mac = bytes(group_mac)
+    _e.add_peer(mac) 
     return
 
 def reset():
@@ -76,12 +99,10 @@ def receive_bytes_into(buffer):
 
 def send_bytes(message):
     global _e
-
-    message_tmp = bytearray(message)
-    message_tmp = bytearray([_group]) + message_tmp
-    out = bytes(message_tmp)
-
-    _e.send(_bpeer, out, True)
+    try:
+        _e.send(None, message, True)
+    except:
+        print("ERROR")
     return
 
 def receive():

@@ -1,4 +1,4 @@
-from microbit import *
+from solderbit import *
 from ble import *
 import controller
 import servo
@@ -77,4 +77,4 @@ while True:
             servo.write(6,0)
             next_time = running_time() + 10000
 
-    servo.move_servos(servos, 5)
+    servo.move_servos(servos, 1)

@@ -2,7 +2,6 @@ from microbit import *
 import radio
 import controller
 
-controller.init()
 
 radio.config(group=5)
 radio.on()   

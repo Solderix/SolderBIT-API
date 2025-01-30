@@ -64,7 +64,7 @@ def set_outputs(connect=None, l6=None, l5=None, l4=None, l3=None, l2=None, l1=No
 
     clock = pin0
     data = pin1
-    strobe = pin2
+    strobe = pin8
 
     for idx, value in enumerate(values):
         if value != None:

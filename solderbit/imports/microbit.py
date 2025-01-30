@@ -102,6 +102,8 @@ class MicroBitPin:
         
         if self.mode != 2:
             return 
+        
+        value = int(min(1023, max(0, value)))
         self.pin.duty(value)
         self.pin.freq(freq)
         return
