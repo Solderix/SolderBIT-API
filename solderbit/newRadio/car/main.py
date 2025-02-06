@@ -7,12 +7,12 @@ radio.config(group=6)
 radio.on()   
 
 vehicle.acceleration = 1
-vehicle.speed = 0.4
+vehicle.speed = 4.4
 
 _next_check = 0
 _check_period = 250
 
-vehicle.set_outputs(connect=1, l6=1, l5=1, l4=1, l3=1, l2=1, l1=1, l0=1)
+vehicle.set_outputs(connect=1, l6=1, l5=0, l4=1, l3=0, l2=1, l1=0, l0=1)
 
 while True:
     data = controller.data_decode(radio.receive_bytes())

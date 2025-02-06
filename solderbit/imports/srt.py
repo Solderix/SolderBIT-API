@@ -22,7 +22,6 @@ RIGHT_LEFT_BTN = 0b1111
 
 _J1X_OFFSET = 0
 _J1Y_OFFSET = 0
-_offsets = []
 
 for num in range(10):
     _J1X_OFFSET = _J1X_OFFSET + pin0.read_analog()
@@ -30,21 +29,14 @@ for num in range(10):
 
 _J1X_OFFSET = int(_J1X_OFFSET/10)
 _J1Y_OFFSET = int(_J1Y_OFFSET/10)
-
-_offsets.append(_J1X_OFFSET)
-_offsets.append(_J1Y_OFFSET)
     
 
 def read_all_inputs():
-    joy_x = pin1.read_analog() - _offsets[0]
-    joy_x = min(1023>>1, max(-1023>>1, joy_x))
-    joy_y = pin0.read_analog() - _offsets[1]
-    joy_y = min(1023>>1, max(-1023>>1, joy_y))
-
+    joy_x = min(1023>>1, max(-1023>>1, (pin1.read_analog() - _J1X_OFFSET) ))
+    joy_y = min(1023>>1, max(-1023>>1, (pin0.read_analog() - _J1Y_OFFSET) ))
     joy_btn = not bool(pin13.read_digital())
     a_btn = not bool(pin15.read_digital())
     b_btn = not bool(pin14.read_digital())
-
     return [-joy_x, joy_y ,-joy_x,joy_y,joy_btn, joy_btn, a_btn, b_btn,False,False,False,False,False,False,False,False,False]
 
 
