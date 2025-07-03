@@ -1,6 +1,13 @@
 from microbit import *
-import ultrasonic
+import controller
 
 while True:
-    print(i2c.scan())
+    data = controller.read_all_inputs()
+
+    #print out few values
+    print(data[controller.LEFT_LEFT_BTN], data[controller.LEFT_RIGHT_BTN], data[controller.LEFT_UP_BTN], data[controller.LEFT_DOWN_BTN])
+    #or print the entire list
+    print(data)
+
     sleep(1000)
+

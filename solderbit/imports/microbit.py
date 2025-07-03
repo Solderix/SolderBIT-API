@@ -95,7 +95,7 @@ class MicroBitPin:
     def get_mode(self):
         return self.mode
         
-    def write_analog(self, value, freq=1000):
+    def write_analog(self, value):
         if self.mode != 2:
             self.pin = machine.PWM(machine.Pin(self.pin_num, machine.Pin.OUT))
             self.mode = 2
@@ -103,6 +103,23 @@ class MicroBitPin:
         
         value = int(min(1023, max(0, value)))
         self.pin.duty(value)
+        return
+    
+    def set_analog_period(self, period):
+        if self.mode != 2:
+            self.pin = machine.PWM(machine.Pin(self.pin_num, machine.Pin.OUT))
+            self.mode = 2
+        
+        freq = int(1000 / period)
+        self.pin.freq(freq)
+        return
+    
+    def set_analog_period_microseconds(self, period):
+        if self.mode != 2:
+            self.pin = machine.PWM(machine.Pin(self.pin_num, machine.Pin.OUT))
+            self.mode = 2
+
+        freq = int(1000000 / period)
         self.pin.freq(freq)
         return
 
@@ -188,7 +205,7 @@ scl = MicroBitPin(38)
 
 class I2C:
     def __init__(self,freq, sda, scl):
-        self.i2c = machine.SoftI2C(machine.Pin(20), machine.Pin(19))
+        self.i2c = machine.SoftI2C(machine.Pin(20), machine.Pin(19), freq=100_000)
 
     def scan(self):
         return self.i2c.scan()  
@@ -324,7 +341,7 @@ class Compass:
 
 class SolderI2C:
     def __init__(self,sda,scl) -> None:
-        self.i2c = machine.I2C(1, sda=machine.Pin(sda, machine.Pin.OUT, machine.Pin.PULL_UP), scl=machine.Pin(scl, machine.Pin.OUT, machine.Pin.PULL_UP))
+        self.i2c = machine.I2C(1, sda=machine.Pin(sda, machine.Pin.OUT, machine.Pin.PULL_UP), scl=machine.Pin(scl, machine.Pin.OUT, machine.Pin.PULL_UP),freq=100000)
         pass
 
     def read(self, addr, n, repeat=False):

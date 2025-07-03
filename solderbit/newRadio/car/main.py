@@ -3,7 +3,7 @@ import radio
 import vehicle
 import srt as controller
 
-radio.config(group=7)
+radio.config(group=8)
 radio.on()   
 
 vehicle.acceleration = 1.0
@@ -21,6 +21,7 @@ while True:
     if data == None:
         continue
     
+    print(data)
     _next_check = running_time() + _check_period
     vehicle.move(data[controller.JOY_X2], y = data[controller.JOY_Y1])
     vehicle.horn(data[controller.L1_BTN])

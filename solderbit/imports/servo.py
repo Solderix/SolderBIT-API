@@ -1,22 +1,37 @@
 from microbit import *
 
-_MODE1_REG = (0x00)
-_MODE2_REG = (0x01)
-_LED0_REG = (0x06)
-_PRE_SCALE_REG = (0xFE)
+data = bytearray([0x00, 0b00110001])
+i2c.write(64,data)
+data = bytearray([0xFE, 131])
+i2c.write(64,data)
+data = bytearray([0x00, 0b00100001])
+i2c.write(64,data)
+data = bytearray([0x01, 0b00001101])
+i2c.write(64,data)
 
-data = bytearray([_MODE1_REG, 0b00110001])
-i2c.write(64,data)
-data = bytearray([_PRE_SCALE_REG, 131])
-i2c.write(64,data)
-data = bytearray([_MODE1_REG, 0b00100001])
-i2c.write(64,data)
-data = bytearray([_MODE2_REG, 0b00001101])
-i2c.write(64,data)
+front = 21
+back = 20
+
+pin11.set_analog_period(20) 
+pin12.set_analog_period(20)
 
 def turn(servo, value, convert=True):
     if convert == True:
         value = int(scale(value, (0.0,180.0), (90.0,500.0)))
-    data = bytearray([_LED0_REG+(0x04*servo), 0x00, 0x00, value&0xFF, (value>>8)&0xFF])
+
+    if servo == back:
+        value = int(scale(value, (90.0,500.0), (10.0,140.0)))
+        pin11.write_analog(value)
+        return
+
+    if servo == front:
+        value = int(scale(value, (90.0,500.0), (10.0,140.0)))
+        pin12.write_analog(value)
+        return
+    
+    value = int(value)
+    data = bytearray([0x06+(0x04*servo), 0x00, 0x00, value&0xFF, (value>>8)&0xFF])
     i2c.write(64,data)
+
+
 

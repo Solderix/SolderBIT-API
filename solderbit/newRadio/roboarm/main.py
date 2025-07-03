@@ -5,7 +5,7 @@ import servo
 
 servo.turn(3,90, True)
 servo.turn(4,90, True)
-servo.turn(5,110, True)
+servo.turn(5,90, True)
 
 radio.config(group=10)
 radio.on()
@@ -21,7 +21,7 @@ servo5_m = 0
 
 servo6_grip = 0
 
-servo_states = [0,0,0,280,270,480,0]
+servo_states = [0,0,0,90,90,90,0]
 next_time = 0
 
 while True:

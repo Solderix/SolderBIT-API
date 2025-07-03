@@ -3,7 +3,7 @@ from microbit import *
 import radio
 import srt as controller
 
-radio.config(group=7)
+radio.config(group=5)
 radio.on()
 
 while True:

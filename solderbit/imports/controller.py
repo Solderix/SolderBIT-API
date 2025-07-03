@@ -32,13 +32,13 @@ _buzzer_minus = pin16
 def read_input(input, offset=True):
     pin = None
     value = input&1
-    pin15.write_digital(value);
+    pin15.write_digital(value)
 
     value = (input>>1)&1
-    pin8.write_digital(value);
+    pin8.write_digital(value)
 
     value = (input>>2)&1
-    pin16.write_digital(value);
+    pin16.write_digital(value)
 
     value = (input>>3)&1
     sleep(1)

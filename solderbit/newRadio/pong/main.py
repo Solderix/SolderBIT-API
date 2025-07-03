@@ -1,10 +1,31 @@
+from machine import Pin, SPI
 from microbit import *
-import controller
 import random
+import st7789
+import framebuf
+import controller
 
-controller.init()
-controller.oled.fill(0)
-controller.oled.show()
+width, height = 128, 64
+buffer = bytearray(width * height * 2)  # 2 bytes per pixel (RGB565)
+fb = framebuf.FrameBuffer(buffer, width, height, framebuf.RGB565)
+
+def config(rotation=0, buffer_size=0, options=0):
+    return st7789.ST7789(
+        SPI(2, baudrate=60_000_000, sck=Pin(18), mosi=Pin(14)),
+        128,
+        160,
+        reset=Pin(46, Pin.OUT),
+        cs=Pin(39, Pin.OUT),
+        dc=Pin(16, Pin.OUT),
+        backlight=Pin(47, Pin.OUT),
+        color_order=st7789.RGB,
+        rotation=rotation,
+        buffer_size = 64*64*2,
+        inversion=False)
+
+tft = config(1)
+tft.init()
+tft.fill(st7789.BLACK)
 
 left_score = 0
 right_score = 0
@@ -24,22 +45,23 @@ ball_steady = True
 steady_counter = 0
 
 def draw_setup():
-    controller.oled.line(64, 0, 64, 63, 1)
-    controller.oled.text(str(left_score), 28, 5)
-    controller.oled.text(str(right_score), 95, 5)
+    fb.text(str(left_score), 28, 5)
+    fb.text(str(right_score), 95, 5)
+    fb.line(64, 0, 64, 63, st7789.WHITE)
     for i in range(10):
-       controller.oled.line(64, 4+(i*10), 64, 9+(i*10), 0)
+       fb.line(64, 4+(i*10), 64, 9+(i*10), st7789.BLACK)
+    return
 
 
 def draw_players():
     for i in range(3):
-        controller.oled.line(2+i, player_one_pos, 2+i, player_one_pos+player_length, 1)
-        controller.oled.line(125+i, player_two_pos, 125+i, player_two_pos+player_length, 1)
+        fb.line(2+i, player_one_pos, 2+i, player_one_pos+player_length, st7789.WHITE)
+        fb.line(125+i, player_two_pos, 125+i, player_two_pos+player_length, st7789.WHITE)
 
 
 def draw_ball():
     for i in range(4):
-        controller.oled.line(ball_x_pos+i, ball_y_pos, ball_x_pos+i, ball_y_pos+3, 1)
+        fb.line(ball_x_pos+i, ball_y_pos, ball_x_pos+i, ball_y_pos+3, st7789.WHITE)
 
 
 def move_player_one(inputs):
@@ -47,8 +69,8 @@ def move_player_one(inputs):
     global player_length
     global player_speed
 
-    player_one_pos = player_one_pos + int(player_speed*(inputs[controller.inputs.JOY_Y1[0]]/-32000))
-
+    player_one_pos = player_one_pos + int(player_speed*(inputs[controller.JOY_Y1]/-700))
+    
     if player_one_pos < 0:
         player_one_pos = 0
     
@@ -152,8 +174,8 @@ def play_state():
 
 
 def start_state():
-    controller.oled.text("Press start", 20, 20, 1)
-    controller.oled.text("for a new game", 9, 30, 1)
+    fb.text("Press start", 20, 20, st7789.WHITE)
+    fb.text("for a new game", 9, 30, st7789.WHITE)
 
     if pin2.read_digital() == False:
         while pin2.read_digital() == False:
@@ -168,11 +190,10 @@ def game_over_state():
     global ball_x_pos, ball_y_pos, ball_x_vel, ball_y_vel, ball_steady, steady_counter
 
     if left_score > right_score:
-       controller.oled.text("You win!", 23, 20, 1)
+       fb.text("You win!", 23, 20, st7789.WHITE)
     else:
-        controller.oled.text("Game over", 23, 20, 1)
+       fb.text("Game over", 23, 20, st7789.WHITE)
 
-    controller.oled.show()
     sleep(2000)
 
     left_score = 0
@@ -195,7 +216,7 @@ def game_over_state():
 
 
 def state_machine(state):
-    controller.oled.fill(0)
+    fb.fill(st7789.BLACK)
     out = state
 
     if state == 0:
@@ -206,9 +227,12 @@ def state_machine(state):
         game_over_state()
         out = 0
 
-    controller.oled.show()
+    tft.rect(15, 31, width+4, height+2, st7789.WHITE)
+    tft.blit_buffer(buffer, 16, 32, width, height)
     return out
-    
+
+
 states = 0    
 while True:
     states = state_machine(states)
+    sleep(5)

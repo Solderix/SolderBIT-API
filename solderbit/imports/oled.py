@@ -49,9 +49,19 @@ def scroll(dx, dy):
 def text(string, x, y, col=1):
     framebuf.text(string, x, y, col)
 
-def rotate():
-    write_cmd(0xa0)
-    write_cmd(0xc0)
+def rotate(rot):
+    if rot == 0:
+        write_cmd(0xa0)
+        write_cmd(0xc0)
+    elif rot == 1:
+        write_cmd(0xa0)
+        write_cmd(0xc8)
+    elif rot == 2:
+        write_cmd(0xa1)
+        write_cmd(0xc8)
+    elif rot == 3:
+        write_cmd(0xa1)
+        write_cmd(0xc0)
 
 def bitmap(buf,x,y,w,h):
     framebuf.blit(framebuf.FrameBuffer1(buf, w,h), x, y)
@@ -59,8 +69,11 @@ def bitmap(buf,x,y,w,h):
 def line(x1, y1, x2, y2, c):
     framebuf.line(x1, y1, x2, y2, c)
 
-def rect(x, y, w, h, c):
-    framebuf.line(x, y, w, h, c)
+def rect(x, y, w, h, c, fill=False):
+    framebuf.rect(x, y, w, h, c, fill)
+
+def circle(x, y, r, c, fill=False):
+    framebuf.ellipse(x, y, r, r,c,fill)
 
 def write_cmd(cmd):
     temp[0] = 0x80
@@ -77,4 +90,4 @@ for cmd in (
 
 fill(0)
 show()
-rotate()
+rotate(0)

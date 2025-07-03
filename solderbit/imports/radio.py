@@ -14,7 +14,7 @@ connected_led = machine.Pin(CONNECTED_PIN, machine.Pin.OUT)
 connected_led.off()
 
 _esp_buffer = []
-_esp_buffer_max = 5
+_esp_buffer_max = 15
 _esp_buffer_counter = 0
 
 mac_base = b'\x1a\x2b\x3c\x4e\x5f'  
@@ -31,7 +31,7 @@ def _recv_cb(e):
     
         if _esp_buffer_counter < _esp_buffer_max:
             _esp_buffer_counter += 1
-            _esp_buffer.append(data)
+            _esp_buffer.append(data[:len(data)])
 
 def on():
    global _sta
