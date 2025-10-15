@@ -1,4 +1,5 @@
 from microbit import *
+import music
 
 _shift_output = [0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -6,6 +7,9 @@ acceleration = 1.0
 speed = 1.0
 vertical_direction = 0
 horizontal_direction = 0
+deadzone = 20
+
+horn_pin = pin8
 
 def move(x,y, delay=0):
     global acceleration
@@ -13,8 +17,8 @@ def move(x,y, delay=0):
     global vertical_direction
     global horizontal_direction
 
-    x = 0 if abs(x) < 20 else (x*2)
-    y = 0 if abs(y) < 20 else (y*2*speed)
+    x = 0 if abs(x) < deadzone else (x*2)
+    y = 0 if abs(y) < deadzone else (y*2*speed)
     
     duration = running_time() + delay
     while duration > running_time() or delay == 0:
@@ -50,20 +54,9 @@ def set_outputs(connect=None, l6=None, l5=None, l4=None, l3=None, l2=None, l1=No
     pin8.write_digital(1)
     pin8.write_digital(0) 
 
-#horn = pin8
-_buzz = pin8
-_horn_prev = 0
-_buzzcnt=1
-def horn(on=0):
-    global _horn_prev
-    global _buzzcnt
-    
-    if running_time() < _horn_prev:
-        return
-     
-    _horn_prev = running_time() + 10
-    if on != 0:
-        _buzzcnt = (1+_buzzcnt*2)%30 
-        _buzz.write_analog(20, (500+_buzzcnt))
+
+def horn(state):
+    if state:
+        music.pitch(5, 350, pin=horn_pin, wait=False)
     else:
-        _buzz.write_analog(0, 1000)
+        music.stop(horn_pin)

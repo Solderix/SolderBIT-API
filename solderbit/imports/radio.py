@@ -17,10 +17,28 @@ _esp_buffer = []
 _esp_buffer_max = 15
 _esp_buffer_counter = 0
 
-mac_base = b'\x1a\x2b\x3c\x4e\x5f'  
+_next_check = 0
+
+mac_base = b'\x1a\x2b\x3c\x4e\x5f'
+
+
+def check_connection():
+    global _e
+
+    is_connected = False
+    if _next_check < running_time():
+        connected_led.off()
+        is_connected = False
+    else:
+        is_connected = True
+        connected_led.on()
+    return is_connected
+
+
 
 def _recv_cb(e):
     global _esp_buffer_counter
+    global _next_check
     while True:  
         mac, data = e.irecv(0)
         if mac is None:
@@ -28,7 +46,12 @@ def _recv_cb(e):
         
         if data == None:
             return
-    
+        
+        _next_check = running_time() + 750
+
+        if data == b'ACK':
+            continue
+
         if _esp_buffer_counter < _esp_buffer_max:
             _esp_buffer_counter += 1
             _esp_buffer.append(data[:len(data)])
@@ -52,7 +75,6 @@ def on():
    _e.add_peer(mac) 
    _e.irq(_recv_cb)
 
-   print('Peers:', _e.get_peers())
 
 def off():
     global _sta
@@ -82,7 +104,7 @@ def reset():
 def send(message):
     send_bytes(message.encode())
 
-def receive_bytes():
+def receive_bytes(confirm=False):
     global _e
     global _esp_buffer_counter
     global _esp_buffer
@@ -91,6 +113,12 @@ def receive_bytes():
         return None
 
     _esp_buffer_counter -= 1
+    if confirm == True:
+        try:
+            _e.send(None, b'ACK', True)
+        except:
+            print("Ack not sent")
+
     return _esp_buffer.pop()
 
 
@@ -111,4 +139,55 @@ def receive():
 def receive_full():
     return
 
+# Used for the pro version
+try:
+    image_end = bytearray([0xFF,0xFE,0xFE,0xFE])
+    lost_counter = 0
 
+    import jpeg
+
+    def handle_image_data(img_data):
+        send_bytes(b'\x01')
+        _next_check = running_time()
+
+        while True:
+            data = receive_bytes()
+
+            if (_next_check + 100) < running_time():
+                return
+
+            if data is None:
+                continue
+
+            if data[0:4] == image_end:
+                break
+
+            _next_check = running_time()
+            img_data.extend(data)
+            send_bytes(b'\x01')
+
+    def receive_video():
+        global lost_counter
+        
+        try:
+            decoder = jpeg.Decoder(rotation=0, format="RGB565_BE", block=True)
+        except:
+            print("JPEG ERROR")
+            return
+        
+        img_data = bytearray()
+        handle_image_data(img_data)
+        try:
+            for y in range(4, 121, 8):
+                dt = decoder.decode(img_data)
+                tft.blit_buffer(dt, 0, y, 160, 120)
+            lost_counter = 0
+        except:
+            lost_counter = lost_counter + 1
+            if lost_counter > 10 and lost_counter != 255:
+                tft.fill(st7789.BLACK) 
+                lost_counter = 255
+            return
+except:
+    def recieve_video():
+        return

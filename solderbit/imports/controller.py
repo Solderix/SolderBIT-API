@@ -17,17 +17,17 @@ JOY1_BTN = 0b0100
 JOY2_BTN = 0b0101
 R1_BTN = 0b0110
 L1_BTN = 0b0111
-LEFT_UP_BTN = 0b1000
-LEFT_DOWN_BTN = 0b1001
-LEFT_RIGHT_BTN = 0b1010
-LEFT_LEFT_BTN = 0b1011
-RIGHT_UP_BTN = 0b1100
-RIGHT_DOWN_BTN = 0b1101
-RIGHT_RIGHT_BTN = 0b1110
-RIGHT_LEFT_BTN = 0b1111
+UP_BTN = 0b1000
+DOWN_BTN = 0b1001
+LEFT_BTN = 0b1010
+RIGHT_BTN = 0b1011
+Z_BTN = 0b1100
+X_BTN = 0b1101
+W_BTN = 0b1110
+Y_BTN = 0b1111
 
 _buzzer_plus = pin15
-_buzzer_minus = pin16
+buzzer = pin16
 
 def read_input(input, offset=True):
     pin = None
@@ -41,7 +41,7 @@ def read_input(input, offset=True):
     pin16.write_digital(value)
 
     value = (input>>3)&1
-    sleep(1)
+    #sleep(1)
 
     if value == 0:
         pin = pin0
@@ -90,7 +90,7 @@ def read_encoded():
         bools |= value<<idx 
     data.append(bools)
     output = struct.pack(_controller_data_format, *data)
-    print(data_tmp)
+    #print(data_tmp)
     return output
 
 
@@ -111,7 +111,7 @@ def data_decode(data):
 
 
 def buzzer_sound(tone, freq=None):
-    _buzzer_minus.write_analog(tone)
+    buzzer.write_analog(tone)
 
 
 

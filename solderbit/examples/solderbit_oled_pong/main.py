@@ -1,13 +1,9 @@
 from microbit import *
 import random
-import st7789
-import framebuf
-
+import oled
 import controller
 
 width, height = 128, 64
-buffer = bytearray(width * height * 2)  # 2 bytes per pixel (RGB565)
-fb = framebuf.FrameBuffer(buffer, width, height, framebuf.RGB565)
 
 left_score = 0
 right_score = 0
@@ -26,24 +22,28 @@ ball_y_vel = 3
 ball_steady = True
 steady_counter = 0
 
+game_screen = oled.screen
+i2c = SolderI2C(3,4, 400000) #to speed up i2c communication
+
+
 def draw_setup():
-    fb.text(str(left_score), 28, 5)
-    fb.text(str(right_score), 95, 5)
-    fb.line(64, 0, 64, 63, st7789.WHITE)
+    game_screen.fb.text(str(left_score), 28, 5)
+    game_screen.fb.text(str(right_score), 95, 5)
+    game_screen.fb.line(64, 0, 64, 63, Image.WHITE)
     for i in range(10):
-       fb.line(64, 4+(i*10), 64, 9+(i*10), st7789.BLACK)
+       game_screen.fb.line(64, 4+(i*10), 64, 9+(i*10), Image.BLACK)
     return
 
 
 def draw_players():
     for i in range(3):
-        fb.line(2+i, player_one_pos, 2+i, player_one_pos+player_length, st7789.WHITE)
-        fb.line(125+i, player_two_pos, 125+i, player_two_pos+player_length, st7789.WHITE)
+        game_screen.fb.line(2+i, player_one_pos, 2+i, player_one_pos+player_length, Image.WHITE)
+        game_screen.fb.line(125+i, player_two_pos, 125+i, player_two_pos+player_length, Image.WHITE)
 
 
 def draw_ball():
     for i in range(4):
-        fb.line(ball_x_pos+i, ball_y_pos, ball_x_pos+i, ball_y_pos+3, st7789.WHITE)
+        game_screen.fb.line(ball_x_pos+i, ball_y_pos, ball_x_pos+i, ball_y_pos+3, Image.WHITE)
 
 
 def move_player_one(inputs):
@@ -143,8 +143,6 @@ def play_state():
     draw_players()
     draw_ball()
 
-    sleep(15)
-
     if left_score == 12 or right_score == 12:
         return 2
 
@@ -159,8 +157,8 @@ def play_state():
 
 
 def start_state():
-    fb.text("Press start", 20, 20, st7789.WHITE)
-    fb.text("for a new game", 9, 30, st7789.WHITE)
+    game_screen.fb.text("Press start", 20, 20, Image.WHITE)
+    game_screen.fb.text("for a new game", 9, 30, Image.WHITE)
     inputs = controller.read_all_inputs()
 
     if inputs[controller.JOY1_BTN] == True:
@@ -177,11 +175,9 @@ def game_over_state():
     global ball_x_pos, ball_y_pos, ball_x_vel, ball_y_vel, ball_steady, steady_counter
 
     if left_score > right_score:
-       fb.text("You win!", 23, 20, st7789.WHITE)
+       game_screen.fb.text("You win!", 23, 20, Image.WHITE)
     else:
-       fb.text("Game over", 23, 20, st7789.WHITE)
-
-    sleep(2000)
+       game_screen.fb.text("Game over", 23, 20, Image.WHITE)
 
     left_score = 0
     right_score = 0
@@ -203,7 +199,7 @@ def game_over_state():
 
 
 def state_machine(state):
-    fb.fill(st7789.BLACK)
+    game_screen.fb.fill(Image.BLACK)
     out = state
 
     if state == 0:
@@ -212,14 +208,14 @@ def state_machine(state):
         out = play_state()
     elif state == 2:
         game_over_state()
+        game_screen.show(game_screen.buffer, width=width, height=height)
+        sleep(2000)
         out = 0
 
-    tft.rect(15, 31, width+4, height+2, st7789.WHITE)
-    tft.blit_buffer(buffer, 16, 32, width, height)
+    game_screen.show(game_screen.buffer, width=width, height=height)
     return out
 
 
 states = 0    
 while True:
     states = state_machine(states)
-    sleep(5)

@@ -10,18 +10,14 @@ vehicle.acceleration = 1.0
 vehicle.speed = 1
 vehicle.deadzone = 100
 
-_next_check = 0
-_check_period = 250
-
 while True:
-    data = controller.data_decode(radio.receive_bytes())
+    data = controller.data_decode(radio.receive_bytes(True))
 
-    if _next_check < running_time():
+    if radio.check_connection() == False:
         vehicle.move(0, 0)
 
     if data == None:
         continue
 
-    _next_check = running_time() + _check_period
     vehicle.move(x = data[controller.JOY_X2], y = data[controller.JOY_Y1])
-    vehicle.horn(data[controller.L1_BTN])
+    vehicle.horn(data[controller.L1_BTN] or data[controller.X_BTN])

@@ -11,14 +11,14 @@ JOY1_BTN = 0b0100
 JOY2_BTN = 0b0101
 R1_BTN = 0b0110
 L1_BTN = 0b0111
-LEFT_UP_BTN = 0b1000
-LEFT_DOWN_BTN = 0b1001
-LEFT_RIGHT_BTN = 0b1010
-LEFT_LEFT_BTN = 0b1011
-RIGHT_UP_BTN = 0b1100
-RIGHT_DOWN_BTN = 0b1101
-RIGHT_RIGHT_BTN = 0b1110
-RIGHT_LEFT_BTN = 0b1111
+UP_BTN = 0b1000
+DOWN_BTN = 0b1001
+LEFT_BTN = 0b1010
+RIGHT_BTN = 0b1011
+Z_BTN = 0b1100
+X_BTN = 0b1101
+W_BTN = 0b1110
+Y_BTN = 0b1111
 
 _J1X_OFFSET = 0
 _J1Y_OFFSET = 0
@@ -37,7 +37,7 @@ def read_all_inputs():
     joy_btn = not bool(pin13.read_digital())
     a_btn = not bool(pin15.read_digital())
     b_btn = not bool(pin14.read_digital())
-    return [-joy_x, joy_y ,-joy_x,joy_y,joy_btn, joy_btn, a_btn, b_btn,False,False,False,False,False,False,False,False,False]
+    return [-joy_x, joy_y ,-joy_x,joy_y,joy_btn, joy_btn, False, False,False,False,False,False,False,a_btn,False,b_btn]
 
 
 def read_encoded():

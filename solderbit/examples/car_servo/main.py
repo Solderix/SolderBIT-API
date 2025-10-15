@@ -4,7 +4,7 @@ import vehicle
 import srt as controller
 import servo
 
-radio.config(group=5)
+radio.config(group=8)
 radio.on()   
 
 vehicle.acceleration = 1.0

@@ -1,4 +1,3 @@
-import framebuf
 from microbit import *
 
 class Config():
@@ -9,9 +8,9 @@ class Config():
 config = Config()
 
 temp = bytearray(2)
-buffer = bytearray(((config.height // 8) * config.width) + 1)
-buffer[0] = 0x40 
-framebuf = framebuf.FrameBuffer1(memoryview(buffer)[1:], config.width, config.height)
+screen = DisplayLED(width=config.width, height=config.height, depth=1, additional_bytes=1, pages=8)
+screen.buffer[0] = 0x40
+screen._set_blit_cb((lambda x, y, height, width: show())) 
 
 def poweroff():
     write_cmd(0xae | 0x00)
@@ -37,18 +36,6 @@ def show():
     write_cmd(config.pages - 1)
     write_framebuf()
 
-def fill(col):
-    framebuf.fill(col)
-
-def pixel(x, y, col):
-    framebuf.pixel(x, y, col)
-
-def scroll(dx, dy):
-    framebuf.scroll(dx, dy)
-
-def text(string, x, y, col=1):
-    framebuf.text(string, x, y, col)
-
 def rotate(rot):
     if rot == 0:
         write_cmd(0xa0)
@@ -63,31 +50,19 @@ def rotate(rot):
         write_cmd(0xa1)
         write_cmd(0xc0)
 
-def bitmap(buf,x,y,w,h):
-    framebuf.blit(framebuf.FrameBuffer1(buf, w,h), x, y)
-
-def line(x1, y1, x2, y2, c):
-    framebuf.line(x1, y1, x2, y2, c)
-
-def rect(x, y, w, h, c, fill=False):
-    framebuf.rect(x, y, w, h, c, fill)
-
-def circle(x, y, r, c, fill=False):
-    framebuf.ellipse(x, y, r, r,c,fill)
-
 def write_cmd(cmd):
     temp[0] = 0x80
     temp[1] = cmd
     i2c.write(0x3c, temp)
 
 def write_framebuf():
-    i2c.write(0x3c, buffer)
+    screen.buffer[0] = 0x40
+    i2c.write(0x3c, screen.buffer)
 
 for cmd in (
     0xae, 0x20, 0x00, 0x40, 0xa1, 0xa8, config.height-1, 0xc8, 0xd3, 0x00, 0xda, 0x12, 0xd5, 0x80, 0xd9, 0xf1, 
     0xdb, 0x30, 0x81, 0xff, 0xa4, 0xa6, 0x8d, 0x14, 0xaf):
     write_cmd(cmd)
 
-fill(0)
+rotate(2)
 show()
-rotate(0)
