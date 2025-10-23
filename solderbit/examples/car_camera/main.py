@@ -32,6 +32,7 @@ while True:
         vehicle.move(0, 1000)
     elif radio.check_connection() == False:
         vehicle.move(0, 0)
+        _auto_flag = False
 
     if _auto_flag:
         vehicle.move(controls[_movment_cnt][0], controls[_movment_cnt][1])

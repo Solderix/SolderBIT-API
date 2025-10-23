@@ -4,7 +4,7 @@ import vehicle
 import srt as controller
 import ultrasonic
 
-radio.config(group=8)
+radio.config(group=2)
 radio.on()   
 
 vehicle.acceleration = 1.0

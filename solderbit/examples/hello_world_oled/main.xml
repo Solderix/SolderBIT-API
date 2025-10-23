@@ -1,0 +1,66 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="FM`,b-ST~k?%K6HGokDT">images</variable>
+  </variables>
+  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="570" y="290">
+    <statement name="SETUP">
+      <block type="variables_set" id="n~Q4*_2sM]?U[kEETk.N">
+        <field name="VAR" id="FM`,b-ST~k?%K6HGokDT">images</field>
+        <value name="VALUE">
+          <block type="lists_create_with" id="8PZa:6xi$kMkZ5!4rERo">
+            <mutation items="3"></mutation>
+            <value name="ADD0">
+              <block type="text" id="1L}q,9%EX{#?wh@Mg?~*">
+                <field name="TEXT">Hello World!</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="display_image" id="tE7-Iowad6v3EXXOB`]b">
+                <field name="00">FALSE</field>
+                <field name="01">FALSE</field>
+                <field name="02">FALSE</field>
+                <field name="03">FALSE</field>
+                <field name="04">FALSE</field>
+                <field name="10">FALSE</field>
+                <field name="11">TRUE</field>
+                <field name="12">FALSE</field>
+                <field name="13">TRUE</field>
+                <field name="14">FALSE</field>
+                <field name="20">FALSE</field>
+                <field name="21">FALSE</field>
+                <field name="22">FALSE</field>
+                <field name="23">FALSE</field>
+                <field name="24">FALSE</field>
+                <field name="30">TRUE</field>
+                <field name="31">FALSE</field>
+                <field name="32">FALSE</field>
+                <field name="33">FALSE</field>
+                <field name="34">TRUE</field>
+                <field name="40">FALSE</field>
+                <field name="41">TRUE</field>
+                <field name="42">TRUE</field>
+                <field name="43">TRUE</field>
+                <field name="44">FALSE</field>
+              </block>
+            </value>
+            <value name="ADD2">
+              <block type="math_number" id="]Z;WNtb(.`wW!TQ3R(cD">
+                <field name="NUM">1234567890</field>
+              </block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </statement>
+    <statement name="LOOP">
+      <block type="oled_show" id="00cTMjWXDRU[cXR.:e2P">
+        <field name="DELAY">500</field>
+        <value name="NAME">
+          <block type="variables_get" id="ehq%~R6L{fyJWkH!e)oT">
+            <field name="VAR" id="FM`,b-ST~k?%K6HGokDT">images</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+</xml>

@@ -57,6 +57,6 @@ def set_outputs(connect=None, l6=None, l5=None, l4=None, l3=None, l2=None, l1=No
 
 def horn(state):
     if state:
-        music.pitch(5, 350, pin=horn_pin, wait=False)
+        music.pitch(245, 5000, pin=horn_pin, wait=False)
     else:
         music.stop(horn_pin)

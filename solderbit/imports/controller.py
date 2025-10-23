@@ -26,8 +26,8 @@ X_BTN = 0b1101
 W_BTN = 0b1110
 Y_BTN = 0b1111
 
-_buzzer_plus = pin15
-buzzer = pin16
+buzzer = pin13
+center_button = pin14
 
 def read_input(input, offset=True):
     pin = None

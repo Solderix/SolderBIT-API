@@ -1,0 +1,25 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="590" y="350">
+    <statement name="SETUP">
+      <block type="radio_group" id="t*pj%}u)D+f=Vx-|:zS%">
+        <value name="NAME">
+          <shadow type="math_number" id="R.hkO9mqXVL/5OK,(;Es">
+            <field name="NUM">7</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="radio_on_block" id="{6~KnxGyJ|?Rk3(P:pYU"></block>
+        </next>
+      </block>
+    </statement>
+    <statement name="LOOP">
+      <block type="radio_send_data_pro" id="_%@*y[?`1VCk:s@+)1+l">
+        <next>
+          <block type="mb_sleep" id=".)zAnR7%.E6npM/4xU9)">
+            <field name="VALUE">50</field>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

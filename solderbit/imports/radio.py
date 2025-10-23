@@ -10,9 +10,6 @@ _sta = network.WLAN(network.STA_IF)
 _e = espnow.ESPNow()
 _e.active(True)
 
-connected_led = machine.Pin(CONNECTED_PIN, machine.Pin.OUT)
-connected_led.off()
-
 _esp_buffer = []
 _esp_buffer_max = 15
 _esp_buffer_counter = 0
@@ -27,11 +24,11 @@ def check_connection():
 
     is_connected = False
     if _next_check < running_time():
-        connected_led.off()
+        connected_led.write_digital(0)
         is_connected = False
     else:
         is_connected = True
-        connected_led.on()
+        connected_led.write_digital(1)
     return is_connected
 
 
@@ -82,7 +79,7 @@ def off():
     
     _sta.active(False)
     _e.active(False)
-    connected_led.off()
+    connected_led.write_digital(0)
 
 def config(length=32, queue=3, channel=7, power=6, address=0x75626974, group=0, data_rate=0):
     global _group

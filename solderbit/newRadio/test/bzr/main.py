@@ -1,6 +1,7 @@
 from microbit import *
+import controller
+import music
 
-while True:
-    connected_led.write_digital(1)    
-    print("after")
+while True:  
+    music.play("a", pin=controller.buzzer)
     sleep(1000)

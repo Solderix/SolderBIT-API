@@ -1,0 +1,225 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="~p.mT?G%[h+c^2c5#-pH">input_frequency</variable>
+    <variable id="@I(ra[[uh@[y,szx7!ba">tone</variable>
+  </variables>
+  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="710" y="-70">
+    <statement name="LOOP">
+      <block type="pro_on_press" id="YUy45`9*A+%FS1E|s5BJ">
+        <field name="DROP">UP_BTN</field>
+        <statement name="NAME2">
+          <block type="procedures_callnoreturn" id="{X=,^LFn7cl|sE*#|5?/">
+            <mutation name="play pitch">
+              <arg name="input_frequency"></arg>
+            </mutation>
+            <value name="ARG0">
+              <block type="math_number" id="8nD:Iz;hj-{{6F-D=Ush">
+                <field name="NUM">440</field>
+              </block>
+            </value>
+          </block>
+        </statement>
+        <next>
+          <block type="pro_on_press" id="7zNg*DHx9bCZK6w9C,GG">
+            <field name="DROP">RIGHT_BTN</field>
+            <statement name="NAME2">
+              <block type="procedures_callnoreturn" id="c0Rb8.5[L:Qab}J#_M(g">
+                <mutation name="play pitch">
+                  <arg name="input_frequency"></arg>
+                </mutation>
+                <value name="ARG0">
+                  <block type="math_number" id="![[iQt?{VK7#=-H9pXwM">
+                    <field name="NUM">493</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <next>
+              <block type="pro_on_press" id="B;D85,t^UQsQ@L+sgONC">
+                <field name="DROP">DOWN_BTN</field>
+                <statement name="NAME2">
+                  <block type="procedures_callnoreturn" id="XG|H4DmQ}SDYgdaVz*]8">
+                    <mutation name="play pitch">
+                      <arg name="input_frequency"></arg>
+                    </mutation>
+                    <value name="ARG0">
+                      <block type="math_number" id="~@a{-dOG8F)m1kV2_J)%">
+                        <field name="NUM">523</field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+                <next>
+                  <block type="pro_on_press" id="?rBV{yaY5B)T;h}%#54y">
+                    <field name="DROP">LEFT_BTN</field>
+                    <statement name="NAME2">
+                      <block type="procedures_callnoreturn" id="2XY4H~#APvf)HT2^`cn)">
+                        <mutation name="play pitch">
+                          <arg name="input_frequency"></arg>
+                        </mutation>
+                        <value name="ARG0">
+                          <block type="math_number" id=")sM96vMR(O+J!N~h;(9)">
+                            <field name="NUM">587</field>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="pro_on_press" id="oc+LpZzIPBq6@NO5`{OP">
+                        <field name="DROP">Z_BTN</field>
+                        <statement name="NAME2">
+                          <block type="procedures_callnoreturn" id="N~DHrLKS{43AR2Q-$g;#">
+                            <mutation name="play pitch">
+                              <arg name="input_frequency"></arg>
+                            </mutation>
+                            <value name="ARG0">
+                              <block type="math_number" id="[ZNp$J0Oa|f4^F@]D-[l">
+                                <field name="NUM">659</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="pro_on_press" id="yn5Yya_-L*j#/c?(}$@J">
+                            <field name="DROP">Y_BTN</field>
+                            <statement name="NAME2">
+                              <block type="procedures_callnoreturn" id="Ip~$:)3~i*B3Ov%k%z14">
+                                <mutation name="play pitch">
+                                  <arg name="input_frequency"></arg>
+                                </mutation>
+                                <value name="ARG0">
+                                  <block type="math_number" id="ak%L0+/qnIj:,AA8fP,#">
+                                    <field name="NUM">698</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </statement>
+                            <next>
+                              <block type="pro_on_press" id="7fTn@QskC?(e*7SjX{Tf">
+                                <field name="DROP">X_BTN</field>
+                                <statement name="NAME2">
+                                  <block type="procedures_callnoreturn" id="Y)gQ$6NCbB,,@`/)9Vp|">
+                                    <mutation name="play pitch">
+                                      <arg name="input_frequency"></arg>
+                                    </mutation>
+                                    <value name="ARG0">
+                                      <block type="math_number" id="MaDqH~F(5gZ%$Rca5w@Z">
+                                        <field name="NUM">739</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </statement>
+                                <next>
+                                  <block type="pro_on_press" id="5+7H_(-hnEHl9Yng^$dy">
+                                    <field name="DROP">W_BTN</field>
+                                    <statement name="NAME2">
+                                      <block type="procedures_callnoreturn" id="4$T@$gjbsNOr{6qiKLp8">
+                                        <mutation name="play pitch">
+                                          <arg name="input_frequency"></arg>
+                                        </mutation>
+                                        <value name="ARG0">
+                                          <block type="math_number" id="MNLaKnS;iWijJ7lKb7zh">
+                                            <field name="NUM">880</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </statement>
+                                    <next>
+                                      <block type="controls_if" id="]u/nX1lA],fb$z+:h90q">
+                                        <value name="IF0">
+                                          <block type="logic_compare" id="M(|H-m)%WF`;0oSd7i$g">
+                                            <field name="OP">EQ</field>
+                                            <value name="A">
+                                              <block type="variables_get" id="s%:qAvc9HJ3YF^r3SD#-">
+                                                <field name="VAR" id="@I(ra[[uh@[y,szx7!ba">tone</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="math_number" id="L`4y0,=YEFH%pl?uSD)s">
+                                                <field name="NUM">0</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <statement name="DO0">
+                                          <block type="music_stop" id="H9P+Md(PEh8uN.*r_=^O">
+                                            <value name="NAME">
+                                              <block type="pro_buzzer_pin" id="0IBj|F2aV9EwQ7B95DkW"></block>
+                                            </value>
+                                          </block>
+                                        </statement>
+                                        <next>
+                                          <block type="variables_set" id="1(UAd}s^]fhy`p7N7fyK">
+                                            <field name="VAR" id="@I(ra[[uh@[y,szx7!ba">tone</field>
+                                            <value name="VALUE">
+                                              <block type="math_number" id="YVy8zUC|T7z2uCIqgb|i">
+                                                <field name="NUM">0</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="(8#E_e$!kih{nX_T@^M!" x="330" y="290">
+    <mutation>
+      <arg name="input_frequency" varid="~p.mT?G%[h+c^2c5#-pH"></arg>
+    </mutation>
+    <field name="NAME">play pitch</field>
+    <comment pinned="false" h="80" w="160">Controls notes</comment>
+    <statement name="STACK">
+      <block type="music_pitch" id="ix8Nbf1pAKT7?a%29ER#">
+        <value name="FREQ">
+          <shadow type="math_number" id="q{THi{SVik*}.V]bI/te">
+            <field name="NUM">440</field>
+          </shadow>
+          <block type="variables_get" id="lA/4NO07,(PMF5~,rj0|">
+            <field name="VAR" id="~p.mT?G%[h+c^2c5#-pH">input_frequency</field>
+          </block>
+        </value>
+        <value name="PIN">
+          <shadow type="mb_pins" id="o?{b4GOUCbE8#2=}B#s+">
+            <field name="DROP">pin0</field>
+          </shadow>
+          <block type="pro_buzzer_pin" id=";ip[lqR5c.?Nuf8c`iyt"></block>
+        </value>
+        <value name="BCK">
+          <shadow type="logic_boolean" id="eq$[k5`od#)[:R-;Aj}Z">
+            <field name="BOOL">FALSE</field>
+          </shadow>
+        </value>
+        <value name="DUR">
+          <block type="math_number" id="zytfSNdtZCSk@O/GZ9Z+">
+            <field name="NUM">5000</field>
+          </block>
+        </value>
+        <next>
+          <block type="variables_set" id="uP`sJj`F~V^Ef_TtxiYm">
+            <field name="VAR" id="@I(ra[[uh@[y,szx7!ba">tone</field>
+            <value name="VALUE">
+              <block type="math_number" id="zL3yh{=[/uToN$nH7c^z">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

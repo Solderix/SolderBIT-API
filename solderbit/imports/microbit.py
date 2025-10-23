@@ -477,26 +477,37 @@ class ICM:
         self.i2c.writeto_mem(self.addr, 0x21, b)
 
     def get_x(self):
-        buff = self.i2c.readfrom_mem(self.addr,regAddress,TO_READ)
-        x = (int(buff[0]) << 8) | buff[1]
-        if x > 0x8000:
-            x = x - 0x10000
-        return x
+        try:
+            buff = self.i2c.readfrom_mem(self.addr,regAddress,TO_READ)
+            x = (int(buff[0]) << 8) | buff[1]
+            if x > 0x8000:
+                x = x - 0x10000
+            return x
+        except:
+            return 0
+        
    
     def get_y(self):
-        buff = self.i2c.readfrom_mem(self.addr,regAddress,TO_READ)
-        y = (int(buff[2]) << 8) | buff[3]
-        if y > 0x8000:
-            y = y - 0x10000
-        return y
-   
-     
+        try:
+            buff = self.i2c.readfrom_mem(self.addr,regAddress,TO_READ)
+            y = (int(buff[2]) << 8) | buff[3]
+            if y > 0x8000:
+                y = y - 0x10000
+            return y
+        except:
+            return 0
+        
+        
     def get_z(self): 
-        buff = self.i2c.readfrom_mem(self.addr,regAddress,TO_READ)
-        z = (int(buff[4]) << 8) | buff[5]
-        if z > 0x8000:
-            z = z - 0x10000
-        return z
+        try:
+            buff = self.i2c.readfrom_mem(self.addr,regAddress,TO_READ)
+            z = (int(buff[4]) << 8) | buff[5]
+            if z > 0x8000:
+                z = z - 0x10000
+            return z
+        except:
+            return 0
+        
 
     def get_values(self):
         out = (self.get_x(), self.get_y(), self.get_z())
@@ -515,38 +526,65 @@ class ICM:
 
            
     def current_gesture(self):
-        x = self.get_x()
-        y = self.get_y()
-        z = self.get_z()
+        x = self.get_x(); y = self.get_y(); z = self.get_z()
 
-        other_thresh =  1000 / (1<<self.bits)
-        pos_thresh =  2000 / (1<<self.bits)
-        neg_thresh = -2000 / (1<<self.bits)
+        one_g = 2000.0 / (1 << self.bits)
 
-        if abs(x) > pos_thresh*3 or abs(y) > pos_thresh*3 or abs(z) > pos_thresh*3:
-            self.gesture = "3g"
-        elif abs(x) > pos_thresh*6 or abs(y) > pos_thresh*6 or abs(z) > pos_thresh*6:
-            self.gesture = "6g"
-        elif abs(x) > pos_thresh*9 or abs(y) > pos_thresh*9 or abs(z) > pos_thresh*9:
-            self.gesture = "9g"      
-        elif z > pos_thresh and abs(x) < other_thresh and abs(y) < other_thresh:
-            self.gesture = "face up"
-        elif z < neg_thresh and abs(x) < other_thresh and abs(y) < other_thresh:
-            self.gesture = "face down"
-        elif y > pos_thresh and abs(x) < other_thresh and abs(z) < other_thresh:
-            self.gesture = "up"
-        elif y < neg_thresh and abs(x) < other_thresh and abs(z) < other_thresh:
-            self.gesture = "down"
-        elif x > pos_thresh and abs(y) < other_thresh and abs(z) < other_thresh:
-            self.gesture = "right"
-        elif x < neg_thresh and abs(y) < other_thresh and abs(z) < other_thresh:
-            self.gesture = "left"
-        elif abs(x) < other_thresh and abs(y) < other_thresh and abs(z) < other_thresh:
-            self.gesture = "freefall"
-        elif abs(x) > other_thresh and abs(y) > other_thresh and abs(z) > other_thresh:
-            self.gesture = "shake"            
-            
-        self.gesture_list.append(self.gesture)
+        alpha = 0.18            # smoothing
+        dom_frac = 0.70         # axis must be > dom_frac * mag
+        shake_thresh = 1.4 * one_g
+        hist_len = 8
+        freefall_thresh = 0.6 * one_g
+
+        # init persistent state
+        if not hasattr(self, "_gs_lp"):
+            self._gs_lp = ((x*x + y*y + z*z) ** 0.5)
+        if not hasattr(self, "_gs_hist"):
+            self._gs_hist = []
+
+        # magnitude, smoothing (low-pass) and high-pass
+        mag = (x*x + y*y + z*z) ** 0.5
+        self._gs_lp += alpha * (mag - self._gs_lp)
+        highpass = mag - self._gs_lp
+
+        # history for recent deltas
+        h = self._gs_hist
+        max_delta = 0.0
+        for v in h:
+            d = mag - v
+            if d < 0: d = -d
+            if d > max_delta: max_delta = d
+        h.append(mag)
+        if len(h) > hist_len:
+            h.pop(0)
+
+        # 1) freefall
+        if mag < freefall_thresh:
+            self.gesture = "freefall"; return self.gesture
+
+        # 2) high-g (check highest first)
+        if mag > 9 * one_g:
+            self.gesture = "9g"; return self.gesture
+        if mag > 6 * one_g:
+            self.gesture = "6g"; return self.gesture
+        if mag > 3 * one_g:
+            self.gesture = "3g"; return self.gesture
+
+        # 3) shake detection (sudden changes)
+        if abs(highpass) > shake_thresh or max_delta > shake_thresh:
+            self.gesture = "shake"; return self.gesture
+
+        # 4) orientation — require dominant axis
+        if mag > 0:
+            if abs(z) > dom_frac * mag:
+                self.gesture = "face down" if z > 0 else "face up"; return self.gesture
+            if abs(y) > dom_frac * mag:
+                self.gesture = "up" if y > 0 else "down"; return self.gesture
+            if abs(x) > dom_frac * mag:
+                self.gesture = "right" if x > 0 else "left"; return self.gesture
+
+        # fallback
+        self.gesture = "unknown"
         return self.gesture
     
     def is_gesture(self, name):

@@ -1,12 +1,13 @@
 from microbit import *
 import re
 from machine import Timer
+import micropython
 
 _ticks = 4
 _bpm = 120
 _volume = 255
 
-_timer = Timer(-1)
+_timer = Timer(0)
 _active_melody = None
 _pin = pin0
 counter = 0
@@ -46,8 +47,7 @@ def _play_note(frequency, dur):
     else:
         _pin.write_analog(0)
 
-
-def melody_cb(t):
+def melody_cb_sch(arg):
     global _active_melody
     global _timer
     global counter
@@ -67,6 +67,9 @@ def melody_cb(t):
     _play_note(frequency, dur)
     _timer.init(period=int(dur), mode=Timer.ONE_SHOT, callback=melody_cb)
     counter += 1
+
+def melody_cb(t):
+    micropython.schedule(melody_cb_sch, 0)
     
 
 def play(melody, pin=pin0, wait=True, loop=False):
@@ -95,7 +98,8 @@ def play(melody, pin=pin0, wait=True, loop=False):
         return
 
     for note in _active_melody:
-        frequency, dur = _parse_note(_active_melody[counter])
+        frequency, dur = _parse_note(note)
+        print(frequency, dur)
         _play_note(frequency, dur)
         sleep(int(dur))
 
@@ -133,15 +137,29 @@ def set_volume(volume):
         _volume = 0
     if _volume > 255:
         _volume = 255
-   
+
+def _kill_pin_scheduled(arg):
+    global _pin, _started
+    _pin.write_analog(0)
+    _started = False
+
+def _kill_pin(t):
+    micropython.schedule(_kill_pin_scheduled, 0)
 
 
 def pitch(frequency, duration=0, pin=pin0, wait=True):
-    pin.set_analog_period(frequency) 
-    pin.write_analog(_volume>>1)
+    global _pin
+    global _started
+
+    _pin = pin
+    _pin.set_analog_period( 1000/frequency ) 
+    _pin.write_analog(_volume>>1)
+    
 
     if wait:
         sleep(duration)
-        pin.write_analog(0)
+        _pin.write_analog(0)
     else:
-        _timer.init(period=duration, mode=Timer.ONE_SHOT, callback=lambda t: pin.write_analog(0))
+        if _started == False:
+            _started = True
+            _timer.init(period=int(duration), mode=Timer.ONE_SHOT, callback=_kill_pin)

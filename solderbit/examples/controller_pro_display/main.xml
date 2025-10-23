@@ -1,0 +1,34 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="690" y="290">
+    <statement name="SETUP">
+      <block type="radio_on_block" id="Ebn.Y)7#cRV5N:H-4~*0"></block>
+    </statement>
+    <statement name="LOOP">
+      <block type="radio_group" id="7VWqzYA3H]pxUMEVp(YP">
+        <value name="NAME">
+          <shadow type="math_number" id="WlX:CtLW-~j7UUAzr_](">
+            <field name="NUM">8</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="radio_send_data_pro" id="As``t9@UUH]PvdDo?M$A">
+            <next>
+              <block type="radio_group" id=".J%KsfsU2t/VuhqZdjU+">
+                <value name="NAME">
+                  <shadow type="math_number" id="`qR9i_B..aTsPHhx3SFN">
+                    <field name="NUM">7</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="radio_video_stream" id="wcf-_T`zM@ar^7%1Sir~">
+                    <field name="NAME">Receive Video Stream</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
