@@ -477,6 +477,7 @@ class ICM:
         self.i2c.writeto_mem(self.addr, 0x21, b)
 
     def get_x(self):
+        sleep(5)
         try:
             buff = self.i2c.readfrom_mem(self.addr,regAddress,TO_READ)
             x = (int(buff[0]) << 8) | buff[1]
@@ -488,6 +489,7 @@ class ICM:
         
    
     def get_y(self):
+        sleep(5)
         try:
             buff = self.i2c.readfrom_mem(self.addr,regAddress,TO_READ)
             y = (int(buff[2]) << 8) | buff[3]
@@ -499,6 +501,7 @@ class ICM:
         
         
     def get_z(self): 
+        sleep(5)
         try:
             buff = self.i2c.readfrom_mem(self.addr,regAddress,TO_READ)
             z = (int(buff[4]) << 8) | buff[5]
@@ -526,43 +529,24 @@ class ICM:
 
            
     def current_gesture(self):
-        x = self.get_x(); y = self.get_y(); z = self.get_z()
-
+        x, y, z = self.get_x(), self.get_y(), self.get_z()
         one_g = 2000.0 / (1 << self.bits)
-
-        alpha = 0.18            # smoothing
-        dom_frac = 0.70         # axis must be > dom_frac * mag
-        shake_thresh = 1.4 * one_g
-        hist_len = 8
         freefall_thresh = 0.6 * one_g
+        shake_thresh = 1.4 * one_g
+        dom_frac = 0.7
 
-        # init persistent state
-        if not hasattr(self, "_gs_lp"):
-            self._gs_lp = ((x*x + y*y + z*z) ** 0.5)
-        if not hasattr(self, "_gs_hist"):
-            self._gs_hist = []
-
-        # magnitude, smoothing (low-pass) and high-pass
         mag = (x*x + y*y + z*z) ** 0.5
-        self._gs_lp += alpha * (mag - self._gs_lp)
-        highpass = mag - self._gs_lp
 
-        # history for recent deltas
-        h = self._gs_hist
-        max_delta = 0.0
-        for v in h:
-            d = mag - v
-            if d < 0: d = -d
-            if d > max_delta: max_delta = d
-        h.append(mag)
-        if len(h) > hist_len:
-            h.pop(0)
+        # Initialize last_mag on first call
+        if not hasattr(self, 'last_mag'):
+            self.last_mag = mag
 
-        # 1) freefall
+        # 1) Freefall
         if mag < freefall_thresh:
-            self.gesture = "freefall"; return self.gesture
+            self.gesture = "freefall"
+            return self.gesture
 
-        # 2) high-g (check highest first)
+        # 2) High-G levels
         if mag > 9 * one_g:
             self.gesture = "9g"; return self.gesture
         if mag > 6 * one_g:
@@ -570,20 +554,27 @@ class ICM:
         if mag > 3 * one_g:
             self.gesture = "3g"; return self.gesture
 
-        # 3) shake detection (sudden changes)
-        if abs(highpass) > shake_thresh or max_delta > shake_thresh:
-            self.gesture = "shake"; return self.gesture
+        # 3) Shake (sudden change)
+        if abs(mag - self.last_mag) > shake_thresh:
+            self.gesture = "shake"
+            return self.gesture
 
-        # 4) orientation — require dominant axis
+        # Update last magnitude for next call
+        self.last_mag = mag
+
+        # 4) Orientation (dominant axis)
         if mag > 0:
             if abs(z) > dom_frac * mag:
-                self.gesture = "face down" if z > 0 else "face up"; return self.gesture
+                self.gesture = "face down" if z > 0 else "face up"
+                return self.gesture
             if abs(y) > dom_frac * mag:
-                self.gesture = "up" if y > 0 else "down"; return self.gesture
+                self.gesture = "up" if y > 0 else "down"
+                return self.gesture
             if abs(x) > dom_frac * mag:
-                self.gesture = "right" if x > 0 else "left"; return self.gesture
+                self.gesture = "right" if x > 0 else "left"
+                return self.gesture
 
-        # fallback
+        # Fallback
         self.gesture = "unknown"
         return self.gesture
     

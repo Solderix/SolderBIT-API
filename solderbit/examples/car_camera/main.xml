@@ -1,0 +1,483 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="8,u7+z_4zl(kFSBw5(J`">data</variable>
+    <variable id="aPed~(PR(%#sv{5P]vqG">auto_flag</variable>
+    <variable id="Sh8*I/3rlJJGu(oHgP7$">move</variable>
+    <variable id="5|0y3[WH^k-wA4|*cZ4|">controls</variable>
+    <variable id="]5GmOul8(,l|3{VDEk5;">movment_cnt</variable>
+    <variable id="/o#0XNQM?aWC/PTk0aS|">tick_cnt</variable>
+  </variables>
+  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="630" y="-150">
+    <statement name="SETUP">
+      <block type="radio_group" id="*2:#p9pq`{[OIq=r_uak">
+        <value name="NAME">
+          <shadow type="math_number" id=":7lAF@1CM9hEu[DQ7fS|">
+            <field name="NUM">8</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="radio_on_block" id="taQs}M%){8M-4k/(GHO(">
+            <next>
+              <block type="speed_block" id="LZY_n.`mhy`zz:kDiIH;">
+                <field name="VALUE">1</field>
+                <next>
+                  <block type="accel_block" id="g$Y?zCm*XgVFXptH`e5B">
+                    <field name="VALUE">1</field>
+                    <next>
+                      <block type="deadzone_block" id="1/B=(sn$v%DI1z}Kp]K.">
+                        <field name="VALUE">100</field>
+                        <next>
+                          <block type="cam_activate" id="t}l-`a;r#)9jyxMul_R5">
+                            <next>
+                              <block type="cam_config" id="v[`il9QPuI%{lIH^#RXg">
+                                <field name="ITEM">group</field>
+                                <value name="NAME">
+                                  <shadow type="math_number" id="5GIKp]dr~5ntP[w$4SxM">
+                                    <field name="NUM">7</field>
+                                  </shadow>
+                                </value>
+                                <next>
+                                  <block type="variables_set" id="!CY*O~=oKp-.-dobZAxc">
+                                    <field name="VAR" id="/o#0XNQM?aWC/PTk0aS|">tick_cnt</field>
+                                    <value name="VALUE">
+                                      <block type="math_number" id="qY3q.mVx0JmzRl`k831@">
+                                        <field name="NUM">0</field>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="variables_set" id="eWl5fYZ36dE,a;L+PU~,">
+                                        <field name="VAR" id="]5GmOul8(,l|3{VDEk5;">movment_cnt</field>
+                                        <value name="VALUE">
+                                          <block type="math_number" id="V,1SY4@KP=y~^McOa!:8">
+                                            <field name="NUM">0</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="variables_set" id="^D~uReReGo@UHJ)z6)@7">
+                                            <field name="VAR" id="5|0y3[WH^k-wA4|*cZ4|">controls</field>
+                                            <value name="VALUE">
+                                              <block type="lists_create_with" id="JgIjjm#e:`=W8a)h4[Yr">
+                                                <mutation items="4"></mutation>
+                                                <value name="ADD0">
+                                                  <block type="vehicle_parameters" id="},@-m76}.z7sSA~.}}V+">
+                                                    <value name="X">
+                                                      <shadow type="math_number" id="(0jTY:m8,%pk25Z8679Q">
+                                                        <field name="NUM">0</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <value name="Y">
+                                                      <shadow type="math_number" id=",Ug|$*uvzsuly*|t{JUt">
+                                                        <field name="NUM">1000</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <value name="D">
+                                                      <shadow type="math_number" id="bd@,p7%@ip4*O6eiLf0N">
+                                                        <field name="NUM">200</field>
+                                                      </shadow>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <value name="ADD1">
+                                                  <block type="vehicle_parameters" id="6vJM~r%[TKu,+=tfpDoK">
+                                                    <value name="X">
+                                                      <shadow type="math_number" id=".B|*M4upIvdWewrfghF/">
+                                                        <field name="NUM">0</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <value name="Y">
+                                                      <shadow type="math_number" id="xXOh`+9wS3F48k|lU=E%">
+                                                        <field name="NUM">0</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <value name="D">
+                                                      <shadow type="math_number" id="@p:GODiI/cj3S,h|tcyX">
+                                                        <field name="NUM">200</field>
+                                                      </shadow>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <value name="ADD2">
+                                                  <block type="vehicle_parameters" id="Vqh9gPHH!1/_/s;43|yh">
+                                                    <value name="X">
+                                                      <shadow type="math_number" id="ou_YKJ{lH`};yMOK1bW;">
+                                                        <field name="NUM">1000</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <value name="Y">
+                                                      <shadow type="math_number" id="woEIuVHx~jEiT1./[cpE">
+                                                        <field name="NUM">0</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <value name="D">
+                                                      <shadow type="math_number" id="-Qo-GU6?[q$kuFTO-p*J">
+                                                        <field name="NUM">200</field>
+                                                      </shadow>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <value name="ADD3">
+                                                  <block type="vehicle_parameters" id="PfGea/{jIR%`B+`J[cII">
+                                                    <value name="X">
+                                                      <shadow type="math_number" id="r!*:fux(};rm*[=NG6W^">
+                                                        <field name="NUM">0</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <value name="Y">
+                                                      <shadow type="math_number" id="~/UDp?(KD~OB9XHkoPPD">
+                                                        <field name="NUM">0</field>
+                                                      </shadow>
+                                                    </value>
+                                                    <value name="D">
+                                                      <shadow type="math_number" id="(D%tl[x1(f1(+QrCtt_=">
+                                                        <field name="NUM">200</field>
+                                                      </shadow>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="LOOP">
+      <block type="variables_set" id="!5MY/9{O{jI/Uk.rNPDo">
+        <field name="VAR" id="8,u7+z_4zl(kFSBw5(J`">data</field>
+        <value name="VALUE">
+          <block type="radio_data" id="!I^(n03ZQJ*W+3C1a_D["></block>
+        </value>
+        <next>
+          <block type="mb_if_btn" id=")~I2tFxA{`M/K=/UG$!L">
+            <field name="DROP">A</field>
+            <statement name="DO">
+              <block type="move_forward_block" id="e#vHOl43DZ9SxAxlQ~$9"></block>
+            </statement>
+            <next>
+              <block type="radio_is_not_connected_statement" id="jd@*hjLqN1l2-3(0ADXc">
+                <statement name="STATEM">
+                  <block type="move_stop_block" id="+j{Q$TBN13RICprul(ra"></block>
+                </statement>
+                <next>
+                  <block type="procedures_callnoreturn" id="DPVHa}c))XuEa:#xrM;*">
+                    <mutation name="auto_mode"></mutation>
+                    <next>
+                      <block type="radio_has_been_recieved" id="Gugg;TDtXNg{-30n?O4Y">
+                        <value name="DATA">
+                          <block type="variables_get" id="{sA4%mS9|3KU_~c5SQU4">
+                            <field name="VAR" id="8,u7+z_4zl(kFSBw5(J`">data</field>
+                          </block>
+                        </value>
+                        <statement name="STATEM">
+                          <block type="srt_on_press_rece" id="Cr9Xys-Bh{2$JaX(lk7a">
+                            <field name="DROP">Y_BTN</field>
+                            <value name="NAME">
+                              <block type="variables_get" id="DlPlXA+KtkbP@084|L@s">
+                                <field name="VAR" id="8,u7+z_4zl(kFSBw5(J`">data</field>
+                              </block>
+                            </value>
+                            <statement name="NAME2">
+                              <block type="mb_sleep" id="qpvloSE9Acbz!SlI7@,t">
+                                <field name="VALUE">100</field>
+                                <next>
+                                  <block type="variables_set" id="IYdnWjHo)fO=LRTN*TRP">
+                                    <field name="VAR" id="aPed~(PR(%#sv{5P]vqG">auto_flag</field>
+                                    <value name="VALUE">
+                                      <block type="logic_negate" id="mecfz;Y|U3Q)JrXVN)L?">
+                                        <value name="BOOL">
+                                          <block type="variables_get" id="=I?2q(g`0MV]@4tg/]D@">
+                                            <field name="VAR" id="aPed~(PR(%#sv{5P]vqG">auto_flag</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="variables_set" id="QT$tY2E#?$X-]EY,y7`!">
+                                        <field name="VAR" id="]5GmOul8(,l|3{VDEk5;">movment_cnt</field>
+                                        <value name="VALUE">
+                                          <block type="math_number" id="v!7{NE%[kvE%$oXjro:2">
+                                            <field name="NUM">1</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="variables_set" id="a8RY,UdjLwAKP3mwL+t#">
+                                            <field name="VAR" id="/o#0XNQM?aWC/PTk0aS|">tick_cnt</field>
+                                            <value name="VALUE">
+                                              <block type="math_number" id="7|5_w1+]]t/yDq.)0m|g">
+                                                <field name="NUM">0</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                            <next>
+                              <block type="test_block" id="$XZMC*c3P|eM7cy9{8L7">
+                                <value name="X_COR">
+                                  <block type="srt_extract_input_" id="^M|uk)J+Pen+jSwk~|2f">
+                                    <field name="VALUE">JOY_X2</field>
+                                    <value name="DATA">
+                                      <block type="variables_get" id="IWnpMNwwQKbCnzs/S^In">
+                                        <field name="VAR" id="8,u7+z_4zl(kFSBw5(J`">data</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="Y_COR">
+                                  <block type="srt_extract_input_" id="[j|Ziuv|Azum!2hT-ax1">
+                                    <field name="VALUE">JOY_Y1</field>
+                                    <value name="DATA">
+                                      <block type="variables_get" id="mdpUbbjfK4/dv2N9ky80">
+                                        <field name="VAR" id="8,u7+z_4zl(kFSBw5(J`">data</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="horn_block" id=":~|Mp5Up,b1qv`}K3bsc">
+                                    <value name="NAME">
+                                      <block type="logic_operation" id="UW]Q$hqFvFfW{]{VgEs|">
+                                        <field name="OP">OR</field>
+                                        <value name="A">
+                                          <block type="srt_extract_input_" id="v:/`k^W/z8AJvm@M*64|">
+                                            <field name="VALUE">L1_BTN</field>
+                                            <value name="DATA">
+                                              <block type="variables_get" id="]a-K_%s~HpEbH`Mvim*l">
+                                                <field name="VAR" id="8,u7+z_4zl(kFSBw5(J`">data</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="srt_extract_input_" id="|M2cwnvGgtPQvqGRs,eT">
+                                            <field name="VALUE">X_BTN</field>
+                                            <value name="DATA">
+                                              <block type="variables_get" id="XF/Rlicy.Uq=cTOD_xVo">
+                                                <field name="VAR" id="8,u7+z_4zl(kFSBw5(J`">data</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id=")8g]@*1=el!;7M*V$yY." x="1450" y="-150">
+    <field name="NAME">auto_mode</field>
+    <comment pinned="false" h="80" w="160">Controls the vehicle with predefined movments</comment>
+    <statement name="STACK">
+      <block type="controls_if" id="V^(#_T!u[NZEsb2|@HwD">
+        <value name="IF0">
+          <block type="variables_get" id="MJ_hDkEeo^C~/2jr4mch">
+            <field name="VAR" id="aPed~(PR(%#sv{5P]vqG">auto_flag</field>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="variables_set" id="5};RcwO^#$]?`_Q}0M%q">
+            <field name="VAR" id="Sh8*I/3rlJJGu(oHgP7$">move</field>
+            <value name="VALUE">
+              <block type="lists_getIndex" id="h.+a23$Wz04M|p@IO4k0">
+                <mutation statement="false" at="true"></mutation>
+                <field name="MODE">GET</field>
+                <field name="WHERE">FROM_START</field>
+                <value name="VALUE">
+                  <block type="variables_get" id="ACokBx|gJrePE(aZJNWN">
+                    <field name="VAR" id="5|0y3[WH^k-wA4|*cZ4|">controls</field>
+                  </block>
+                </value>
+                <value name="AT">
+                  <block type="variables_get" id="Ne635d8s?#|EDhdFe!s@">
+                    <field name="VAR" id="]5GmOul8(,l|3{VDEk5;">movment_cnt</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="test_block" id="kX0I]=K6Sar[WCOGh[2o">
+                <value name="X_COR">
+                  <block type="lists_getIndex" id="{:i!RscTWf@c_4!04eHa">
+                    <mutation statement="false" at="true"></mutation>
+                    <field name="MODE">GET</field>
+                    <field name="WHERE">FROM_START</field>
+                    <value name="VALUE">
+                      <block type="variables_get" id="g1:|-Ku4D(?bu5Wxi4M-">
+                        <field name="VAR" id="Sh8*I/3rlJJGu(oHgP7$">move</field>
+                      </block>
+                    </value>
+                    <value name="AT">
+                      <block type="math_number" id="~!f[THG!NK)g#Ej/XaK3">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="Y_COR">
+                  <block type="lists_getIndex" id="no{E/`)xk5.J_rnSPrd(">
+                    <mutation statement="false" at="true"></mutation>
+                    <field name="MODE">GET</field>
+                    <field name="WHERE">FROM_START</field>
+                    <value name="VALUE">
+                      <block type="variables_get" id="N|,#.@NFkAb=4?njLz_n">
+                        <field name="VAR" id="Sh8*I/3rlJJGu(oHgP7$">move</field>
+                      </block>
+                    </value>
+                    <value name="AT">
+                      <block type="math_number" id="LR$bH?Fz3-iT7m6A$::k">
+                        <field name="NUM">2</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="variables_set" id="2fMFz2Z`e-)#V=7mXPfN">
+                    <field name="VAR" id="/o#0XNQM?aWC/PTk0aS|">tick_cnt</field>
+                    <value name="VALUE">
+                      <block type="math_arithmetic" id="0G*G3x804|:S/n?NPV-0">
+                        <field name="OP">ADD</field>
+                        <value name="A">
+                          <shadow type="math_number" id="|J5Xpv~3#-3|;e5^aolT">
+                            <field name="NUM">1</field>
+                          </shadow>
+                          <block type="variables_get" id="m(=Qo.Wci:CfN|k=|_b3">
+                            <field name="VAR" id="/o#0XNQM?aWC/PTk0aS|">tick_cnt</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <shadow type="math_number" id="!?k8@2q_2%?})]4bRSac">
+                            <field name="NUM">1</field>
+                          </shadow>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="mb_sleep" id="ZX(O#W}:;.GLF$Q=[0z0">
+                        <field name="VALUE">1</field>
+                        <next>
+                          <block type="controls_if" id="oM7sHGa{9r;y-.@^M%2z">
+                            <value name="IF0">
+                              <block type="logic_compare" id="X6JhI80|+DB~2E*fqx9o">
+                                <field name="OP">GT</field>
+                                <value name="A">
+                                  <block type="variables_get" id="6b3To0Y.T;z0;9C$Wh9S">
+                                    <field name="VAR" id="/o#0XNQM?aWC/PTk0aS|">tick_cnt</field>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="lists_getIndex" id="~j4LZB+cF9m{er3yM,nk">
+                                    <mutation statement="false" at="true"></mutation>
+                                    <field name="MODE">GET</field>
+                                    <field name="WHERE">FROM_START</field>
+                                    <value name="VALUE">
+                                      <block type="variables_get" id="oLJVyh(-ZG.SE8w#@)8V">
+                                        <field name="VAR" id="Sh8*I/3rlJJGu(oHgP7$">move</field>
+                                      </block>
+                                    </value>
+                                    <value name="AT">
+                                      <block type="math_number" id="Sl9zY0[=Z~M=}adztp2o">
+                                        <field name="NUM">3</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <statement name="DO0">
+                              <block type="variables_set" id="z?_uaH-VHsk1QwLQ8V5O">
+                                <field name="VAR" id="]5GmOul8(,l|3{VDEk5;">movment_cnt</field>
+                                <value name="VALUE">
+                                  <block type="math_modulo" id="hnxk(t*ur+I5,eKS77Vp">
+                                    <value name="DIVIDEND">
+                                      <shadow type="math_number" id="xqdgH$?Q^U6%SnOHBM_O">
+                                        <field name="NUM">64</field>
+                                      </shadow>
+                                      <block type="math_arithmetic" id="%8hVd,;cYGKmvcH/[[.f">
+                                        <field name="OP">ADD</field>
+                                        <value name="A">
+                                          <shadow type="math_number" id="!ikX9Y3,|=Dt)zaQO_6Z">
+                                            <field name="NUM">1</field>
+                                          </shadow>
+                                          <block type="variables_get" id="(vfmA~tp}]Y=Y^zD1;};">
+                                            <field name="VAR" id="]5GmOul8(,l|3{VDEk5;">movment_cnt</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <shadow type="math_number" id="Rb}ynuc*wC]S0qnH({]q">
+                                            <field name="NUM">1</field>
+                                          </shadow>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="DIVISOR">
+                                      <shadow type="math_number" id="7v7B3BtZ^]m(MY.g[6%`">
+                                        <field name="NUM">10</field>
+                                      </shadow>
+                                      <block type="lists_length" id=":-{jNIp2xOL%~/81rsOe">
+                                        <value name="VALUE">
+                                          <block type="variables_get" id="`6Q`aU;In9~(xcd]2:u=">
+                                            <field name="VAR" id="5|0y3[WH^k-wA4|*cZ4|">controls</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="variables_set" id="lOu(X1T:Swul3Wl`-ty3">
+                                    <field name="VAR" id="/o#0XNQM?aWC/PTk0aS|">tick_cnt</field>
+                                    <value name="VALUE">
+                                      <block type="math_number" id="Iwt)eFglFz(YlJY}X#{8">
+                                        <field name="NUM">0</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>

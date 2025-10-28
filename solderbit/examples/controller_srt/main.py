@@ -2,9 +2,10 @@ from microbit import *
 import radio
 import srt as controller
 
-radio.config(group=5)
+radio.config(group=8)
 radio.on()
 
 while True:
+    radio.check_connection()
     radio.send_bytes(controller.read_encoded())
     sleep(50)

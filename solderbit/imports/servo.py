@@ -1,13 +1,14 @@
 from microbit import *
 
-data = bytearray([0x00, 0b00110001])
-i2c.write(64,data)
-data = bytearray([0xFE, 131])
-i2c.write(64,data)
-data = bytearray([0x00, 0b00100001])
-i2c.write(64,data)
-data = bytearray([0x01, 0b00001101])
-i2c.write(64,data)
+def init():
+    data = bytearray([0x00, 0b00110001])
+    i2c.write(64,data)
+    data = bytearray([0xFE, 131])
+    i2c.write(64,data)
+    data = bytearray([0x00, 0b00100001])
+    i2c.write(64,data)
+    data = bytearray([0x01, 0b00001101])
+    i2c.write(64,data)
 
 front = 21
 back = 20
@@ -33,5 +34,5 @@ def turn(servo, value, convert=True):
     data = bytearray([0x06+(0x04*servo), 0x00, 0x00, value&0xFF, (value>>8)&0xFF])
     i2c.write(64,data)
 
-
+init()
 

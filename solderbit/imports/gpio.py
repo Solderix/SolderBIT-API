@@ -25,9 +25,12 @@ def mode(pin,mode):
 
 def read(pin):
     pin, port = mode(pin, INPUT)
-    i2c.write(33, bytearray([0x12+port]), True)
-    states = i2c.read(33, 1, True)
-    return (states[0]>>pin)&1
+    try:
+        i2c.write(33, bytearray([0x12+port]), True)
+        states = i2c.read(33, 1, True)
+        return (states[0]>>pin)&1
+    except:
+        return 0
 
     
 def write(pin, state):

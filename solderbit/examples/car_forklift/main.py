@@ -4,41 +4,29 @@ import vehicle
 import srt as controller
 import servo
 
-radio.config(group=7)
+radio.config(group=8)
 radio.on()   
 
 vehicle.acceleration = 1.0
 vehicle.speed = 1.0
-
-_next_check = 0
-_check_period = 250
+vehicle.deadzone = 100
 
 while True:
-    up = False
-    down = False
-    data = controller.data_decode(radio.receive_bytes())
+    data = controller.data_decode(radio.receive_bytes(True))
+
+    if radio.check_connection() == False:
+        servo.turn(servo.front, 90, True)
+        vehicle.move(0, 0)
 
     if data != None:
-        x = data[controller.JOY_X2]
-        y = data[controller.JOY_Y1]
-        up = data[controller.UP_BTN]
-        down = data[controller.DOWN_BTN]
-        fast = data[controller.Z_BTN]
-        slow = data[controller.X_BTN]
-
-        if fast == True:
+        if data[controller.Z_BTN]:
             vehicle.speed = 1
-        elif slow == True:
+        elif data[controller.X_BTN]:
             vehicle.speed = 0.3
 
-        _next_check = running_time() + _check_period
-        vehicle.move(x, y)
+        if data[controller.UP_BTN]:
+            servo.turn(servo.front, 150, True)
+        elif data[controller.DOWN_BTN]:
+            servo.turn(servo.front, 90, True)
 
-    if up == True:
-        servo.turn(3, 150, True)
-    elif down == True:
-        servo.turn(3, 90, True)
-
-    if _next_check < running_time():
-        servo.turn(3, 90, True)
-        vehicle.move(0, 0)
+        vehicle.move(data[controller.JOY_X2], data[controller.JOY_Y1])

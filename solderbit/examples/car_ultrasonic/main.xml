@@ -1,0 +1,170 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id=",qVQ,^pW}3LkUvM3td}(">data</variable>
+    <variable id="CRaM|/cyG-`)rrvEjq`h">auto_mode</variable>
+  </variables>
+  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="490" y="70">
+    <statement name="SETUP">
+      <block type="radio_group" id=";!$OeF;=o.X$}/B09664">
+        <value name="NAME">
+          <shadow type="math_number" id="^-3P`xNh#/[K9,qq1[TQ">
+            <field name="NUM">8</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="radio_on_block" id="AAF@0W%f2-vHP-0#zmhZ">
+            <next>
+              <block type="speed_block" id="e~Y$P0zDf2)fbAITD+,i">
+                <field name="VALUE">1</field>
+                <next>
+                  <block type="accel_block" id="ovRwu81^EB{2%;J%6w7H">
+                    <field name="VALUE">1</field>
+                    <next>
+                      <block type="deadzone_block" id="]Q3b+HlGJ,5O{6`g1B,r">
+                        <field name="VALUE">100</field>
+                        <next>
+                          <block type="variables_set" id="FI:]r2co`]J9.JGd3BZH">
+                            <field name="VAR" id="CRaM|/cyG-`)rrvEjq`h">auto_mode</field>
+                            <value name="VALUE">
+                              <block type="math_number" id="|Aevx0NnvVzBeA!dB/M)">
+                                <field name="NUM">0</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="LOOP">
+      <block type="variables_set" id="j2zcsbcC=!`xkBZ`v}v+">
+        <field name="VAR" id=",qVQ,^pW}3LkUvM3td}(">data</field>
+        <value name="VALUE">
+          <block type="radio_data" id="D#^IPJX)B=!?2T.O.IGp"></block>
+        </value>
+        <next>
+          <block type="radio_is_not_connected_statement" id="GXJ4R#kJ]8!rA|]^55Fe">
+            <statement name="STATEM">
+              <block type="move_stop_block" id="o:$?sP3FXgYS$+[(6?DZ"></block>
+            </statement>
+            <next>
+              <block type="controls_if" id="4OegVk-r#oeO;IrdxbJ}">
+                <value name="IF0">
+                  <block type="variables_get" id="iX)c%E1KM1P9Z9*W||s^">
+                    <field name="VAR" id="CRaM|/cyG-`)rrvEjq`h">auto_mode</field>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="controls_if" id="9i0yTm)-yaS{Qf(csj#-">
+                    <mutation else="1"></mutation>
+                    <value name="IF0">
+                      <block type="logic_compare" id="NO9i1+!/Zu:sg4p4[P^p">
+                        <field name="OP">LT</field>
+                        <value name="A">
+                          <block type="us_distance" id="m:1rMhqQ#pj2.mzf1]x#"></block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number" id="Zad9o|XFI.nS4=}BY}K-">
+                            <field name="NUM">15</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="move_left_block" id="_`E*`.O`e5LW-j-c.)K;"></block>
+                    </statement>
+                    <statement name="ELSE">
+                      <block type="move_forward_block" id="J9X^[,6p7[7Ca6!1G]%Q"></block>
+                    </statement>
+                  </block>
+                </statement>
+                <next>
+                  <block type="radio_has_been_recieved" id="-@^J@zYJy$@~TuI{4RUA">
+                    <value name="DATA">
+                      <block type="variables_get" id="qi(PC^x0@-K3rKMHS8V7">
+                        <field name="VAR" id=",qVQ,^pW}3LkUvM3td}(">data</field>
+                      </block>
+                    </value>
+                    <statement name="STATEM">
+                      <block type="srt_on_press_rece" id="f,$kAw8ZP%mn/c?j##;Z">
+                        <field name="DROP">Y_BTN</field>
+                        <value name="NAME">
+                          <block type="variables_get" id="r_j26[BNe5Bw=w9y6s@v">
+                            <field name="VAR" id=",qVQ,^pW}3LkUvM3td}(">data</field>
+                          </block>
+                        </value>
+                        <statement name="NAME2">
+                          <block type="mb_sleep" id="xgspeopmxqo6A;E:$!#3">
+                            <field name="VALUE">100</field>
+                            <next>
+                              <block type="variables_set" id="i(dpONf,;W.jnPq}AP@F">
+                                <field name="VAR" id="CRaM|/cyG-`)rrvEjq`h">auto_mode</field>
+                                <value name="VALUE">
+                                  <block type="logic_negate" id="5NsQ)l:e1jH5e-ppbRpB">
+                                    <value name="BOOL">
+                                      <block type="variables_get" id="DT~hD2{(6h#9|IZ@SdZ~">
+                                        <field name="VAR" id="CRaM|/cyG-`)rrvEjq`h">auto_mode</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="test_block" id="E[K4)ht$8)2u-[Jv}fx`">
+                            <value name="X_COR">
+                              <block type="srt_extract_input_" id="QYzHDVkaO~$UC~p*~**t">
+                                <field name="VALUE">JOY_X2</field>
+                                <value name="DATA">
+                                  <block type="variables_get" id=":v|D4hrExS.T}2}%lx(?">
+                                    <field name="VAR" id=",qVQ,^pW}3LkUvM3td}(">data</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="Y_COR">
+                              <block type="srt_extract_input_" id="UPdyoUC-YcL=we!+*_%.">
+                                <field name="VALUE">JOY_Y1</field>
+                                <value name="DATA">
+                                  <block type="variables_get" id="?Kg:8-mTc}=fYmyDgR#B">
+                                    <field name="VAR" id=",qVQ,^pW}3LkUvM3td}(">data</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="horn_block" id="T;A3%_OUi_@n.4_Dmm$7">
+                                <value name="NAME">
+                                  <block type="srt_extract_input_" id="!y0n4i9PhSJEM]ag:~@o">
+                                    <field name="VALUE">X_BTN</field>
+                                    <value name="DATA">
+                                      <block type="variables_get" id="mmpvOkkwfa{!R-FjI@I7">
+                                        <field name="VAR" id=",qVQ,^pW}3LkUvM3td}(">data</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
