@@ -29,10 +29,10 @@ def move(x,y, delay=0):
         motor_b = int(min(511, max(-511, vertical_direction + horizontal_direction)))*2
 
         #MOT_A_BACK = pin13   MOT_A_FRONT = pin14   MOT_B_BACK = pin15   MOT_B_FRONT = pin16
-        pin13.write_analog(max(0, motor_a))
-        pin14.write_analog(max(0, -motor_a))
-        pin15.write_analog(max(0, motor_b))
-        pin16.write_analog(max(0, -motor_b))
+        pin13.write_analog(max(0, -motor_a))
+        pin14.write_analog(max(0, motor_a))
+        pin15.write_analog(max(0, -motor_b))
+        pin16.write_analog(max(0, motor_b))
         delay = 1
 
 

@@ -92,6 +92,10 @@ def config(length=32, queue=3, channel=7, power=6, address=0x75626974, group=0, 
     group_mac = bytearray(mac_base)
     group_mac.append(_group)
     mac = bytes(group_mac)
+
+    if _sta.active():
+        _sta.config(mac=mac)
+    
     _e.add_peer(mac) 
     return
 

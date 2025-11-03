@@ -1,21 +1,15 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
-  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="670" y="190">
+  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="670" y="290">
     <statement name="LOOP">
-      <block type="mb_builtin" id="lkw|JCry.o*Yx}Rc_*Qa">
-        <field name="DROP">1</field>
+      <block type="mb_print" id="myn#CKU]RQSR[dz{/k+^">
+        <value name="NAME">
+          <shadow type="text" id="%4l!dAjGx7K2f11r:|{N">
+            <field name="TEXT">Hello World!</field>
+          </shadow>
+        </value>
         <next>
-          <block type="mb_sleep" id="tpte7i%|)kml,%L!Iuqq">
-            <field name="VALUE">500</field>
-            <next>
-              <block type="mb_builtin" id="ZI^PIu,oU8VC}Wpp$97a">
-                <field name="DROP">0</field>
-                <next>
-                  <block type="mb_sleep" id="SqI]pv0QPMDqyaHNTuy3">
-                    <field name="VALUE">500</field>
-                  </block>
-                </next>
-              </block>
-            </next>
+          <block type="mb_sleep" id="^cPBl(S|7jU-Ojy:[+y0">
+            <field name="VALUE">1000</field>
           </block>
         </next>
       </block>
