@@ -49,7 +49,6 @@ def read_encoded():
         bools |= value<<idx 
     data.append(bools)
     output = struct.pack(_controller_data_format, *data)
-    print(data_tmp)
     return output
 
 

@@ -1,0 +1,147 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="510" y="-110">
+    <statement name="SETUP">
+      <block type="display_clear" id="r8g8e`on:Vy4x`*av_+w"></block>
+    </statement>
+    <statement name="LOOP">
+      <block type="motion_direction_pro" id="Isk=z7#],/byWMg5{i8w">
+        <field name="DROP">up</field>
+        <statement name="DO">
+          <block type="display_show_image" id="/eYZo4O[FqOsnh-OnQA!">
+            <field name="00">FALSE</field>
+            <field name="01">FALSE</field>
+            <field name="02">FALSE</field>
+            <field name="03">FALSE</field>
+            <field name="04">FALSE</field>
+            <field name="10">FALSE</field>
+            <field name="11">TRUE</field>
+            <field name="12">FALSE</field>
+            <field name="13">TRUE</field>
+            <field name="14">FALSE</field>
+            <field name="20">FALSE</field>
+            <field name="21">FALSE</field>
+            <field name="22">FALSE</field>
+            <field name="23">FALSE</field>
+            <field name="24">FALSE</field>
+            <field name="30">TRUE</field>
+            <field name="31">FALSE</field>
+            <field name="32">FALSE</field>
+            <field name="33">FALSE</field>
+            <field name="34">TRUE</field>
+            <field name="40">FALSE</field>
+            <field name="41">TRUE</field>
+            <field name="42">TRUE</field>
+            <field name="43">TRUE</field>
+            <field name="44">FALSE</field>
+            <field name="COLOUR">RED</field>
+          </block>
+        </statement>
+        <next>
+          <block type="motion_direction_pro" id="4ec0W[`-rE/A)9$[hdlw">
+            <field name="DROP">down</field>
+            <statement name="DO">
+              <block type="display_show_image" id="F,$rg$x|P.jP8J^mfgo/">
+                <field name="00">FALSE</field>
+                <field name="01">TRUE</field>
+                <field name="02">TRUE</field>
+                <field name="03">TRUE</field>
+                <field name="04">FALSE</field>
+                <field name="10">TRUE</field>
+                <field name="11">FALSE</field>
+                <field name="12">FALSE</field>
+                <field name="13">FALSE</field>
+                <field name="14">TRUE</field>
+                <field name="20">FALSE</field>
+                <field name="21">FALSE</field>
+                <field name="22">FALSE</field>
+                <field name="23">FALSE</field>
+                <field name="24">FALSE</field>
+                <field name="30">FALSE</field>
+                <field name="31">TRUE</field>
+                <field name="32">FALSE</field>
+                <field name="33">TRUE</field>
+                <field name="34">FALSE</field>
+                <field name="40">FALSE</field>
+                <field name="41">FALSE</field>
+                <field name="42">FALSE</field>
+                <field name="43">FALSE</field>
+                <field name="44">FALSE</field>
+                <field name="COLOUR">RED</field>
+              </block>
+            </statement>
+            <next>
+              <block type="motion_direction_pro" id="]g=R;jv*Y+=Mk2VP~^!3">
+                <field name="DROP">left</field>
+                <statement name="DO">
+                  <block type="display_show_image" id="wK4p;G2]zd{zDATCO8Y_">
+                    <field name="00">FALSE</field>
+                    <field name="01">TRUE</field>
+                    <field name="02">FALSE</field>
+                    <field name="03">FALSE</field>
+                    <field name="04">FALSE</field>
+                    <field name="10">TRUE</field>
+                    <field name="11">FALSE</field>
+                    <field name="12">FALSE</field>
+                    <field name="13">TRUE</field>
+                    <field name="14">FALSE</field>
+                    <field name="20">TRUE</field>
+                    <field name="21">FALSE</field>
+                    <field name="22">FALSE</field>
+                    <field name="23">FALSE</field>
+                    <field name="24">FALSE</field>
+                    <field name="30">TRUE</field>
+                    <field name="31">FALSE</field>
+                    <field name="32">FALSE</field>
+                    <field name="33">TRUE</field>
+                    <field name="34">FALSE</field>
+                    <field name="40">FALSE</field>
+                    <field name="41">TRUE</field>
+                    <field name="42">FALSE</field>
+                    <field name="43">FALSE</field>
+                    <field name="44">FALSE</field>
+                    <field name="COLOUR">RED</field>
+                  </block>
+                </statement>
+                <next>
+                  <block type="motion_direction_pro" id="MGfKp(To}bt~x[ZuIa*t">
+                    <field name="DROP">right</field>
+                    <statement name="DO">
+                      <block type="display_show_image" id="NheBqfmyja7/[}plphlu">
+                        <field name="00">FALSE</field>
+                        <field name="01">FALSE</field>
+                        <field name="02">FALSE</field>
+                        <field name="03">TRUE</field>
+                        <field name="04">FALSE</field>
+                        <field name="10">FALSE</field>
+                        <field name="11">TRUE</field>
+                        <field name="12">FALSE</field>
+                        <field name="13">FALSE</field>
+                        <field name="14">TRUE</field>
+                        <field name="20">FALSE</field>
+                        <field name="21">FALSE</field>
+                        <field name="22">FALSE</field>
+                        <field name="23">FALSE</field>
+                        <field name="24">TRUE</field>
+                        <field name="30">FALSE</field>
+                        <field name="31">TRUE</field>
+                        <field name="32">FALSE</field>
+                        <field name="33">FALSE</field>
+                        <field name="34">TRUE</field>
+                        <field name="40">FALSE</field>
+                        <field name="41">FALSE</field>
+                        <field name="42">FALSE</field>
+                        <field name="43">TRUE</field>
+                        <field name="44">FALSE</field>
+                        <field name="COLOUR">RED</field>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

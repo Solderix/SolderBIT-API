@@ -21,12 +21,16 @@ def turn(servo, value, convert=True):
         value = int(scale(value, (0.0,180.0), (90.0,500.0)))
 
     if servo == back:
-        value = int(scale(value, (90.0,500.0), (10.0,140.0)))
+        if convert == False:
+            value = int(scale(value, (0.0,180.0), (90.0,500.0)))
+        value = int(scale(value, (90.0,500.0), (20,125)))
         pin11.write_analog(value)
         return
 
     if servo == front:
-        value = int(scale(value, (90.0,500.0), (10.0,140.0)))
+        if convert == False:
+            value = int(scale(value, (0.0,180.0), (90.0,500.0)))
+        value = int(scale(value, (90.0,500.0), (20,125)))
         pin12.write_analog(value)
         return
     

@@ -43,8 +43,8 @@ def set_outputs(connect=None, l6=None, l5=None, l4=None, l3=None, l2=None, l1=No
 
     for idx, value in enumerate(values):
         if value != None:
-            pin1.write_digital(value&1)
-            _shift_output[idx] = value
+            pin1.write_digital(int(value)&1)
+            _shift_output[idx] = int(value)
         else:
             pin1.write_digital(_shift_output[idx])   
 
