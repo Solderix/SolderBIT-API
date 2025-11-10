@@ -16,5 +16,3 @@ for %%f in (".\imports\*.py") do (
 ampy -p %ampy_port% ls
 
 echo Check if all files are present on the device.
-echo Enter to exit...
-pause >nul
