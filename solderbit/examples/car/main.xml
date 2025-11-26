@@ -154,7 +154,13 @@
           <block type="mb_if_btn" id=")~I2tFxA{`M/K=/UG$!L">
             <field name="DROP">A</field>
             <statement name="DO">
-              <block type="move_forward_block" id="e#vHOl43DZ9SxAxlQ~$9"></block>
+              <block type="move_forward_block" id="e#vHOl43DZ9SxAxlQ~$9">
+                <next>
+                  <block type="mb_sleep" id="urXDhWK:jpGAU3h*,a!O">
+                    <field name="VALUE">50</field>
+                  </block>
+                </next>
+              </block>
             </statement>
             <next>
               <block type="radio_is_not_connected_statement" id="jd@*hjLqN1l2-3(0ADXc">
