@@ -1,5 +1,5 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
-  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="670" y="290">
+  <block type="mb_setup" id="^*^^d[/.!@@3-.rqaj_!" deletable="false" editable="false" x="10" y="110">
     <statement name="SETUP">
       <block type="radio_group" id=";!$OeF;=o.X$}/B09664">
         <value name="NAME">
@@ -12,6 +12,8 @@
         </next>
       </block>
     </statement>
+  </block>
+  <block type="mb_loop" id="l_TwQea5jF;0j/.S^Rz?" deletable="false" editable="false" x="250" y="110">
     <statement name="LOOP">
       <block type="radio_send_data_srt" id="-j_XCUlUe*H_|jY|/5IS">
         <next>

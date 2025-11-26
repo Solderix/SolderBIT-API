@@ -1,8 +1,10 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
-  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="510" y="-110">
+  <block type="mb_setup" id="Pw0KL^XActHh@#v-|z^-" deletable="false" editable="false" x="370" y="30">
     <statement name="SETUP">
       <block type="display_clear" id="r8g8e`on:Vy4x`*av_+w"></block>
     </statement>
+  </block>
+  <block type="mb_loop" id="qw1#A,%lCTf8$uih}u[!" deletable="false" editable="false" x="370" y="130">
     <statement name="LOOP">
       <block type="motion_direction_pro" id="Isk=z7#],/byWMg5{i8w">
         <field name="DROP">up</field>

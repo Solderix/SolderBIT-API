@@ -1,0 +1,54 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="`}T7-/LUiA-Ic_)r5vT,">data</variable>
+  </variables>
+  <block type="mb_setup" id="Y(J;YrU*biNVz-aZbC~M" deletable="false" editable="false" x="270" y="170">
+    <statement name="SETUP">
+      <block type="radio_group" id="A;|k~q1kRlHt?2mw!+|o">
+        <value name="NAME">
+          <shadow type="math_number" id="9-i%q?=@/YoHFiCQo^ip">
+            <field name="NUM">8</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="radio_on_block" id="$M_L^2|PGixI7)8/coc:"></block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="mb_loop" id="YwqVbk.][D10}l?tGS/4" deletable="false" editable="false" x="510" y="170">
+    <statement name="LOOP">
+      <block type="radio_is_not_connected_statement" id="-VDOjdo%/^6)$pMp8=:`">
+        <statement name="STATEM">
+          <block type="move_stop_block" id=";AyMmx^T$NgGF(,F8~RO"></block>
+        </statement>
+        <next>
+          <block type="variables_set" id="7@wSwM[],P]:xu0Tov!p">
+            <field name="VAR" id="`}T7-/LUiA-Ic_)r5vT,">data</field>
+            <value name="VALUE">
+              <block type="radio_data" id="jKIcNTZf8(3=,lc(A-8n"></block>
+            </value>
+            <next>
+              <block type="radio_has_been_recieved" id="QV3YJ5=/$}zFg+IGoK!=">
+                <value name="DATA">
+                  <block type="variables_get" id="k(-U/F~GX#SDfS2(o@d5">
+                    <field name="VAR" id="`}T7-/LUiA-Ic_)r5vT,">data</field>
+                  </block>
+                </value>
+                <statement name="STATEM">
+                  <block type="vehicle_magic" id="jgBtvllg,Z=(6,nH{.Lz">
+                    <value name="VALUE">
+                      <block type="variables_get" id="zDg-l(3H|TrNdssoPJ/w">
+                        <field name="VAR" id="`}T7-/LUiA-Ic_)r5vT,">data</field>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

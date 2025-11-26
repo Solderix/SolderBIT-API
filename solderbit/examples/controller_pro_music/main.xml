@@ -3,7 +3,8 @@
     <variable id="~p.mT?G%[h+c^2c5#-pH">input_frequency</variable>
     <variable id="@I(ra[[uh@[y,szx7!ba">tone</variable>
   </variables>
-  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="710" y="-70">
+  <block type="mb_setup" id="Q;Cqwz|CO!a#RoD%Dmq." deletable="false" editable="false" x="250" y="-10"></block>
+  <block type="mb_loop" id="?@6c/n!LS39E-[c..#-f" deletable="false" editable="false" x="250" y="70">
     <statement name="LOOP">
       <block type="pro_on_press" id="YUy45`9*A+%FS1E|s5BJ">
         <field name="DROP">UP_BTN</field>
@@ -177,7 +178,7 @@
       </block>
     </statement>
   </block>
-  <block type="procedures_defnoreturn" id="(8#E_e$!kih{nX_T@^M!" x="330" y="290">
+  <block type="procedures_defnoreturn" id="(8#E_e$!kih{nX_T@^M!" x="570" y="90">
     <mutation>
       <arg name="input_frequency" varid="~p.mT?G%[h+c^2c5#-pH"></arg>
     </mutation>

@@ -4,7 +4,7 @@
     <variable id="DeVvjZq7^$H!:?@=Kc.~">x</variable>
     <variable id="L_Q#N;^=hNE$m%44fYwc">y</variable>
   </variables>
-  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="470" y="-10">
+  <block type="mb_setup" id="gHt5%@F#kk*We.(RXn}M" deletable="false" editable="false" x="-210" y="-370">
     <statement name="SETUP">
       <block type="radio_group" id=";!$OeF;=o.X$}/B09664">
         <value name="NAME">
@@ -16,10 +16,10 @@
           <block type="radio_on_block" id="AAF@0W%f2-vHP-0#zmhZ">
             <next>
               <block type="speed_block" id="e~Y$P0zDf2)fbAITD+,i">
-                <field name="VALUE">1</field>
+                <field name="VALUE">100</field>
                 <next>
                   <block type="accel_block" id="ovRwu81^EB{2%;J%6w7H">
-                    <field name="VALUE">1</field>
+                    <field name="VALUE">100</field>
                     <next>
                       <block type="deadzone_block" id="]Q3b+HlGJ,5O{6`g1B,r">
                         <field name="VALUE">100</field>
@@ -33,6 +33,8 @@
         </next>
       </block>
     </statement>
+  </block>
+  <block type="mb_loop" id="4*y_@?!i4m_lzLi:Wl.a" deletable="false" editable="false" x="-210" y="-90">
     <statement name="LOOP">
       <block type="variables_set" id="j2zcsbcC=!`xkBZ`v}v+">
         <field name="VAR" id=",qVQ,^pW}3LkUvM3td}(">data</field>

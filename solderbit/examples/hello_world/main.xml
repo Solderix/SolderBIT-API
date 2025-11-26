@@ -1,5 +1,6 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
-  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="670" y="290">
+  <block type="mb_setup" id="3~6ZE+//k[AN2Vx-T$,q" deletable="false" editable="false" x="30" y="90"></block>
+  <block type="mb_loop" id=".O.MkiP(oamfjk6~pbuX" deletable="false" editable="false" x="30" y="170">
     <statement name="LOOP">
       <block type="mb_print" id="myn#CKU]RQSR[dz{/k+^">
         <value name="NAME">

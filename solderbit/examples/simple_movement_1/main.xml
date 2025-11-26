@@ -1,0 +1,17 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="mb_setup" id="Y(J;YrU*biNVz-aZbC~M" deletable="false" editable="false" x="390" y="170"></block>
+  <block type="mb_loop" id="YwqVbk.][D10}l?tGS/4" deletable="false" editable="false" x="390" y="250">
+    <statement name="LOOP">
+      <block type="mb_if_btn" id="`UJZB%-t:ydbpBWRIqVu">
+        <field name="DROP">A</field>
+        <statement name="DO">
+          <block type="vehicle_mv" id="(bxCjU8b{TlMIx/YO:k/">
+            <field name="DIR">F</field>
+            <field name="SPEED">50</field>
+            <field name="TIME">2000</field>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>

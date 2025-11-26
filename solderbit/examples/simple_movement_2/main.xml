@@ -1,0 +1,46 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="mb_setup" id="Y(J;YrU*biNVz-aZbC~M" deletable="false" editable="false" x="390" y="170"></block>
+  <block type="mb_loop" id="YwqVbk.][D10}l?tGS/4" deletable="false" editable="false" x="390" y="250">
+    <statement name="LOOP">
+      <block type="mb_sleep" id="JH_NW:O6CN;]gO!/^Pc]">
+        <field name="VALUE">100</field>
+        <next>
+          <block type="mb_if_btn" id="`UJZB%-t:ydbpBWRIqVu">
+            <field name="DROP">A</field>
+            <statement name="DO">
+              <block type="vehicle_mv" id="(bxCjU8b{TlMIx/YO:k/">
+                <field name="DIR">L</field>
+                <field name="SPEED">50</field>
+                <field name="TIME">500</field>
+              </block>
+            </statement>
+            <next>
+              <block type="mb_if_btn" id="r|v~-zOcW!#LzQg*VI~t">
+                <field name="DROP">B</field>
+                <statement name="DO">
+                  <block type="vehicle_mv" id="TuzwSX58S7opv*D*p4%O">
+                    <field name="DIR">R</field>
+                    <field name="SPEED">50</field>
+                    <field name="TIME">500</field>
+                  </block>
+                </statement>
+                <next>
+                  <block type="mb_if_btn" id="H9M}d.of(J4T;W)gsG}]">
+                    <field name="DROP">A+B</field>
+                    <statement name="DO">
+                      <block type="vehicle_mv" id="`qFeKg%/iL*LuU)V[y^f">
+                        <field name="DIR">F</field>
+                        <field name="SPEED">50</field>
+                        <field name="TIME">1000</field>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>

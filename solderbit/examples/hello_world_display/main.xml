@@ -2,7 +2,7 @@
   <variables>
     <variable id="FM`,b-ST~k?%K6HGokDT">images</variable>
   </variables>
-  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="570" y="290">
+  <block type="mb_setup" id="Q5iLp:U=2k/$Rbx9cr)f" deletable="false" editable="false" x="-150" y="-150">
     <statement name="SETUP">
       <block type="variables_set" id="n~Q4*_2sM]?U[kEETk.N">
         <field name="VAR" id="FM`,b-ST~k?%K6HGokDT">images</field>
@@ -52,6 +52,8 @@
         </value>
       </block>
     </statement>
+  </block>
+  <block type="mb_loop" id="O#N+cq.nXn9YEM1=6H42" deletable="false" editable="false" x="-150" y="130">
     <statement name="LOOP">
       <block type="display_show" id="qfe!zg-+j.v,UB:]2LeI">
         <field name="DELAY">500</field>

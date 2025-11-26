@@ -1,8 +1,10 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
-  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="690" y="290">
+  <block type="mb_setup" id="@t5,]XEz2GV5jlWTZ#DK" deletable="false" editable="false" x="-110" y="-110">
     <statement name="SETUP">
       <block type="radio_on_block" id="Ebn.Y)7#cRV5N:H-4~*0"></block>
     </statement>
+  </block>
+  <block type="mb_loop" id=")I5Y1apw=xP1qy!(O33^" deletable="false" editable="false" x="50" y="-110">
     <statement name="LOOP">
       <block type="radio_group" id="7VWqzYA3H]pxUMEVp(YP">
         <value name="NAME">

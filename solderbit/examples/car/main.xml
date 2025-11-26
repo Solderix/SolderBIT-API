@@ -7,7 +7,7 @@
     <variable id="]5GmOul8(,l|3{VDEk5;">movment_cnt</variable>
     <variable id="/o#0XNQM?aWC/PTk0aS|">tick_cnt</variable>
   </variables>
-  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="630" y="-150">
+  <block type="mb_setup" id="@~ExcXOErd{}l~5o?l7Z" deletable="false" editable="false" x="163" y="-113">
     <statement name="SETUP">
       <block type="radio_group" id="*2:#p9pq`{[OIq=r_uak">
         <value name="NAME">
@@ -19,10 +19,10 @@
           <block type="radio_on_block" id="taQs}M%){8M-4k/(GHO(">
             <next>
               <block type="speed_block" id="LZY_n.`mhy`zz:kDiIH;">
-                <field name="VALUE">1</field>
+                <field name="VALUE">100</field>
                 <next>
                   <block type="accel_block" id="g$Y?zCm*XgVFXptH`e5B">
-                    <field name="VALUE">1</field>
+                    <field name="VALUE">100</field>
                     <next>
                       <block type="deadzone_block" id="1/B=(sn$v%DI1z}Kp]K.">
                         <field name="VALUE">100</field>
@@ -142,6 +142,8 @@
         </next>
       </block>
     </statement>
+  </block>
+  <block type="mb_loop" id="-DVT}FJw#X2.km#*E;{%" deletable="false" editable="false" x="270" y="290">
     <statement name="LOOP">
       <block type="variables_set" id="!5MY/9{O{jI/Uk.rNPDo">
         <field name="VAR" id="8,u7+z_4zl(kFSBw5(J`">data</field>
@@ -282,7 +284,7 @@
       </block>
     </statement>
   </block>
-  <block type="procedures_defnoreturn" id=")8g]@*1=el!;7M*V$yY." x="1450" y="-150">
+  <block type="procedures_defnoreturn" id=")8g]@*1=el!;7M*V$yY." x="790" y="290">
     <field name="NAME">auto_mode</field>
     <comment pinned="false" h="80" w="160">Controls the vehicle with predefined movments</comment>
     <statement name="STACK">

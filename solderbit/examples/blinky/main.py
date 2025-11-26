@@ -1,10 +1,10 @@
 from microbit import *
-import radio
+import oled
 
-led = radio.connected_led
+images = None
+
+
+images = ['Hello World!', Image("00000:09090:00000:90009:09990"), 1234567890]
 
 while True:
-    led.write_digital(1)
-    sleep(1000)
-    led.write_digital(0)
-    sleep(1000)
+  oled.screen.show(images, delay=500)

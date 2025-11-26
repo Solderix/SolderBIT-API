@@ -2,7 +2,7 @@
   <variables>
     <variable id=",qVQ,^pW}3LkUvM3td}(">data</variable>
   </variables>
-  <block type="mb_main" id="l)gQSuw;7{s+{MLd8(X5" deletable="false" editable="false" x="430" y="-250">
+  <block type="mb_setup" id="9^Zk:K%s6/`5lXwTpI-[" deletable="false" editable="false" x="-250" y="-210">
     <statement name="SETUP">
       <block type="radio_group" id="ezBY~vx]v0_@KaK,mH)v">
         <value name="NAME">
@@ -14,10 +14,10 @@
           <block type="radio_on_block" id="3TCF(2,~c(}LFEslT+u$">
             <next>
               <block type="speed_block" id="g@yxqf)cnHbBD$#U?gJE">
-                <field name="VALUE">1</field>
+                <field name="VALUE">100</field>
                 <next>
                   <block type="accel_block" id="{hsWahiCZ/KM!-)UQQiW">
-                    <field name="VALUE">1</field>
+                    <field name="VALUE">100</field>
                     <next>
                       <block type="deadzone_block" id="=B]vZ,WPaT*n/G?(]TL_">
                         <field name="VALUE">100</field>
@@ -31,6 +31,8 @@
         </next>
       </block>
     </statement>
+  </block>
+  <block type="mb_loop" id="7#JBzi=T1R4}-|I[?Ig;" deletable="false" editable="false" x="-250" y="-10">
     <statement name="LOOP">
       <block type="variables_set" id="[n28X7pn7+$1Pj)#NYE?">
         <field name="VAR" id=",qVQ,^pW}3LkUvM3td}(">data</field>
@@ -118,12 +120,12 @@
                         </value>
                         <statement name="NAME2">
                           <block type="speed_block" id="{6*2/~}WV$)M?uV)e:*,">
-                            <field name="VALUE">0.3</field>
+                            <field name="VALUE">20</field>
                           </block>
                         </statement>
                         <statement name="ELSE">
                           <block type="speed_block" id="`xcf;c(R2Y|I`%ZOP8!E">
-                            <field name="VALUE">1</field>
+                            <field name="VALUE">100</field>
                           </block>
                         </statement>
                         <next>
