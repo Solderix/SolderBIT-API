@@ -1,0 +1,161 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="-YH[rL8Ix^$sQM7:QY~n">direction</variable>
+    <variable id="9)hJy^%VT9$Za[r7R$S9">trigger_value</variable>
+  </variables>
+  <block type="mb_setup" id="@t5,]XEz2GV5jlWTZ#DK" deletable="false" editable="false" x="-130" y="-310">
+    <statement name="SETUP">
+      <block type="deadzone_block" id="B-D)Z/,a(.3?[hdGL?z,">
+        <field name="VALUE">10</field>
+        <next>
+          <block type="move_stop_block" id="MUk?FD4~9n0#xz%nmxd~">
+            <next>
+              <block type="variables_set" id="O7T/nNmi4IOJG7{-p?bH">
+                <field name="VAR" id="9)hJy^%VT9$Za[r7R$S9">trigger_value</field>
+                <value name="VALUE">
+                  <block type="math_number" id="oc9~}{V#M,BY:OZ1,4*Y">
+                    <field name="NUM">0.012</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="mb_print" id="73=gz?4-/Ola036C]9)/">
+                    <value name="NAME">
+                      <shadow type="text" id="R0xR0W{%j:fzKb}S#4%F">
+                        <field name="TEXT">Press A to start Follower</field>
+                      </shadow>
+                    </value>
+                    <next>
+                      <block type="controls_whileUntil" id="k1gz$ybO+PL+}[6x,.3h">
+                        <field name="MODE">WHILE</field>
+                        <value name="BOOL">
+                          <block type="logic_boolean" id="?ZD|n1xz!jc`i:w:2YoB">
+                            <field name="BOOL">TRUE</field>
+                          </block>
+                        </value>
+                        <statement name="DO">
+                          <block type="mb_if_btn" id="4MTDaeD00iwqbD;nUEED">
+                            <field name="DROP">A</field>
+                            <statement name="DO">
+                              <block type="controls_flow_statements" id="IO:DW{^j`hEt;T$g1L6n">
+                                <field name="FLOW">BREAK</field>
+                              </block>
+                            </statement>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="mb_loop" id=")I5Y1apw=xP1qy!(O33^" deletable="false" editable="false" x="270" y="-310">
+    <statement name="LOOP">
+      <block type="variables_set" id="NF0Dh4klK9h~:m0wDW]j">
+        <field name="VAR" id="-YH[rL8Ix^$sQM7:QY~n">direction</field>
+        <value name="VALUE">
+          <block type="math_number" id="+HRYJYU,MT#i]LQM?rK/">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+        <next>
+          <block type="controls_if" id="m#6i[|gXN+$T[x5]M{b5">
+            <mutation elseif="1"></mutation>
+            <value name="IF0">
+              <block type="logic_compare" id="11uhNEGO)+ATB5?)g)iP">
+                <field name="OP">LT</field>
+                <value name="A">
+                  <block type="follower_read" id="Fwn:D@ns-?dt|{kWjCKz">
+                    <value name="VALUE">
+                      <shadow type="math_number" id="]E%/@#0`8znugw/`ArD4">
+                        <field name="NUM">0</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="variables_get" id="$agT.!nIZ{*f3_,?OLWK">
+                    <field name="VAR" id="9)hJy^%VT9$Za[r7R$S9">trigger_value</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="variables_set" id="agcWr8dWd7h]USeV3)pl">
+                <field name="VAR" id="-YH[rL8Ix^$sQM7:QY~n">direction</field>
+                <value name="VALUE">
+                  <block type="math_number" id="7Bfz}%CS{oc{liq/|U}a">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <value name="IF1">
+              <block type="logic_compare" id="t?t;sw]|?El)C;n{l4a?">
+                <field name="OP">LT</field>
+                <value name="A">
+                  <block type="follower_read" id="h*-,J;UfnWzun]S*YbiZ">
+                    <value name="VALUE">
+                      <shadow type="math_number" id="`BpWz{Dd/eY5:@tF7F4L">
+                        <field name="NUM">3</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="variables_get" id="2+oFQ$8^w%oXH3!DsO*-">
+                    <field name="VAR" id="9)hJy^%VT9$Za[r7R$S9">trigger_value</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO1">
+              <block type="variables_set" id="NEH8ff?.:[Z!0P[U?+xu">
+                <field name="VAR" id="-YH[rL8Ix^$sQM7:QY~n">direction</field>
+                <value name="VALUE">
+                  <block type="math_number" id="zy`xJ2oW/fc)]-zzVPsJ">
+                    <field name="NUM">-1</field>
+                  </block>
+                </value>
+              </block>
+            </statement>
+            <next>
+              <block type="test_block" id="wKl2g8m%Avrh85i]%GyX">
+                <value name="X_COR">
+                  <block type="math_arithmetic" id="+O+}9/npc/#agH[gp[A%">
+                    <field name="OP">MULTIPLY</field>
+                    <value name="A">
+                      <shadow type="math_number" id="xuV]6pj1p.G9xO*jii[/">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="math_number" id="C1{HC2De5pLLcj$k@KnI">
+                        <field name="NUM">400</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <shadow type="math_number" id=",+HB|4Y:m?P.zs~*eRf4">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="variables_get" id="vO~:z-iG1chb7+D%w,`p">
+                        <field name="VAR" id="-YH[rL8Ix^$sQM7:QY~n">direction</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="Y_COR">
+                  <block type="math_number" id="x8H:9$#(,H}rbh`j/WXD">
+                    <field name="NUM">80</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
