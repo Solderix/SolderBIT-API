@@ -1,0 +1,58 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="mb_setup" id="*3!4,SGyKWYqG:Z$R#;x" deletable="false" editable="false" x="590" y="290"></block>
+  <block type="mb_loop" id="B$z9~Rc/{bW{eqYcLeh7" deletable="false" editable="false" x="710" y="290">
+    <statement name="LOOP">
+      <block type="controls_whileUntil" id="(SXw^,}x=Da`Ftj:PNm^">
+        <field name="MODE">WHILE</field>
+        <value name="BOOL">
+          <block type="logic_compare" id="]wKqZ9^oxDuzK.X6)Qc-">
+            <field name="OP">LT</field>
+            <value name="A">
+              <block type="math_number" id="PA*?f=Uo~*!b(,xkSo.u">
+                <field name="NUM">4</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="proxy_distance" id="g%t`q-bm2jm(TaW|@4pH"></block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO">
+          <block type="move_stop_block" id="L|iA1fMRYY_o(9/[/oR6"></block>
+        </statement>
+        <next>
+          <block type="controls_if" id="2kS(8GMSHrUdSBTxV+fN">
+            <mutation else="1"></mutation>
+            <value name="IF0">
+              <block type="logic_compare" id="M|2aOZP8[)2)D9yGcmu1">
+                <field name="OP">GT</field>
+                <value name="A">
+                  <block type="proxy_lux" id="bxts)GKonvX-rK?g)4)b"></block>
+                </value>
+                <value name="B">
+                  <block type="math_number" id="-AHy){q`q/5IX}Kq,P4|">
+                    <field name="NUM">300</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="vehicle_mv_nd" id=".r#TlFBgDK!_^PAi-d4|">
+                <field name="DIR">F</field>
+                <field name="SPEED">100</field>
+                <next>
+                  <block type="mb_sleep" id="/%6Nh[5ji]yN5oC+!b*}">
+                    <field name="VALUE">10</field>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <statement name="ELSE">
+              <block type="move_stop_block" id=":(%0uJsu1j4j%k9tEWkl"></block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
