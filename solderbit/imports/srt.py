@@ -24,8 +24,8 @@ _J1X_OFFSET = 0
 _J1Y_OFFSET = 0
 
 for num in range(10):
-    _J1X_OFFSET = _J1X_OFFSET + pin0.read_analog()
-    _J1Y_OFFSET = _J1Y_OFFSET + pin1.read_analog()
+    _J1X_OFFSET = _J1X_OFFSET + pin1.read_analog()
+    _J1Y_OFFSET = _J1Y_OFFSET + pin0.read_analog()
 
 _J1X_OFFSET = int(_J1X_OFFSET/10)
 _J1Y_OFFSET = int(_J1Y_OFFSET/10)
