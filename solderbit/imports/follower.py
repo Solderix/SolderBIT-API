@@ -1,3 +1,4 @@
+#1.0.0
 from microbit import *
 
 i2c.write(72, bytearray([0x01, 0x66, 0x83]), True)

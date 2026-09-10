@@ -1,3 +1,4 @@
+#1.0.0
 # this code is distributed under the MIT licence.
 
 """

@@ -29,8 +29,8 @@ game_screen = display
 game_screen.fb = framebuf.FrameBuffer(game_screen.buffer, width, height, framebuf.RGB565)
 
 def draw_setup():
-    game_screen.fb.text(str(left_score), 28, 5)
-    game_screen.fb.text(str(right_score), 95, 5)
+    #game_screen.fb.text(str(left_score), 28, 5)
+    #game_screen.fb.text(str(right_score), 95, 5)
     game_screen.fb.line(64, 0, 64, 63, st7789.WHITE)
     for i in range(10):
        game_screen.fb.line(64, 4+(i*10), 64, 9+(i*10), st7789.BLACK)
@@ -212,7 +212,7 @@ def state_machine(state):
         out = play_state()
     elif state == 2:
         game_over_state()
-        game_screen.show(game_screen.buffer, width=width, height=height)
+        game_screen.show(game_screen.buffer, width=width, height=height, x=15, y=30)
         sleep(2000)
         out = 0
 
@@ -221,7 +221,28 @@ def state_machine(state):
     return out
 
 
-states = 0    
-while True:
-    states = state_machine(states)
-    sleep(5)
+def entry():
+    state = 0
+    buffer = bytearray(64 * 16 * 2)
+    test = framebuf.FrameBuffer(buffer, 64, 16, framebuf.RGB565)
+    test.large_text("PONG", 0, 0, 2, st7789.WHITE)
+    game_screen.blit_buffer(buffer, width=64, height=16, x=48, y=10)
+    test = framebuf.FrameBuffer(buffer, 32, 16, framebuf.RGB565)
+    while True:
+        
+        state = state_machine(state)
+        test.fill(st7789.BLACK)
+        test.large_text(str(left_score), 0, 0, 2, st7789.WHITE)
+        game_screen.blit_buffer(buffer, width=32, height=16, x=35, y=100)
+
+        test.fill(st7789.BLACK)
+        test.large_text(str(right_score), 0, 0, 2, st7789.WHITE)
+        game_screen.blit_buffer(buffer, width=32, height=16, x=100, y=100)
+        if controller.center_button.read_digital() == 0:
+            sleep(200)
+            break
+        sleep(5)
+
+
+if __name__ == "__main__":
+    entry()

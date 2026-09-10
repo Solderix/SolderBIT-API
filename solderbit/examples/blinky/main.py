@@ -1,10 +1,8 @@
 from microbit import *
-import oled
 
-images = None
-
-
-images = ['Hello World!', Image("00000:09090:00000:90009:09990"), 1234567890]
 
 while True:
-  oled.screen.show(images, delay=500)
+  connected_led.write_digital(1)
+  sleep(100)
+  connected_led.write_digital(0)
+  sleep(100)

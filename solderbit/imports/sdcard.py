@@ -1,7 +1,9 @@
+#1.0.0
 
 from micropython import const
+from machine import SPI, Pin
 import time
-
+import os
 
 _CMD_TIMEOUT = const(100)
 
@@ -16,11 +18,14 @@ _TOKEN_CMD25 = const(0xFC)
 _TOKEN_STOP_TRAN = const(0xFD)
 _TOKEN_DATA = const(0xFE)
 
-
 class SDCard:
-    def __init__(self, spi, cs, baudrate=1320000):
-        self.spi = spi
-        self.cs = cs
+    def __init__(self,baudrate=4000000):
+        self.spi = SPI(1,
+            sck=Pin(11),
+            mosi=Pin(5),
+            miso=Pin(12)
+        )
+        self.cs = Pin(42, Pin.OUT, value=1)
 
         self.cmdbuf = bytearray(6)
         self.dummybuf = bytearray(512)
@@ -31,6 +36,10 @@ class SDCard:
 
         # initialise the card
         self.init_card(baudrate)
+
+        #mount the card so that it can be accessed using the os module
+        os.mount(self, '/sd')
+
 
     def init_spi(self, baudrate):
         try:
@@ -283,3 +292,6 @@ class SDCard:
             return self.sectors
         if op == 5:  # get block size in bytes
             return 512
+        
+
+sd = SDCard()

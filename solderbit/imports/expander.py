@@ -1,3 +1,4 @@
+#1.0.0
 from microbit import *
 
 addr = 0x70  

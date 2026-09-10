@@ -1,3 +1,4 @@
+#1.0.0
 from machine import *
 from microbit import *
 import struct

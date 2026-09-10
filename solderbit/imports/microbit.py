@@ -1,3 +1,5 @@
+#1.0.0
+
 import machine
 import esp
 import time
@@ -179,27 +181,39 @@ Image.SCISSORS= Image("")
 Image.ALL_CLOCKS = [Image.CLOCK12, Image.CLOCK11, Image.CLOCK10, Image.CLOCK9, Image.CLOCK8, Image.CLOCK7, Image.CLOCK6, Image.CLOCK5, Image.CLOCK4, Image.CLOCK3, Image.CLOCK2, Image.CLOCK1]
 Image.ALL_ARROWS = [Image.ARROW_N, Image.ARROW_NE, Image.ARROW_E, Image.ARROW_SE, Image.ARROW_S, Image.ARROW_SW, Image.ARROW_W, Image.ARROW_NW]
 
-Image.BLACK = 0x0000
-Image.WHITE = 0xFFFF
-Image.RED =  0xF800
-Image.GREEN = 0x07E0
-Image.BLUE = 0x001F
-Image.YELLOW = 0xFFE0
-Image.CYAN = 0x07FF
-Image.MAGENTA = 0xF81F
-Image.ORANGE = 0xFD20
-Image.PINK = 0xF81F
+Image.BLACK = swap_rgb565(0x0000)
+Image.WHITE = swap_rgb565(0xFFFF)
+Image.RED =  swap_rgb565(0xF800)
+Image.GREEN = swap_rgb565(0x07E0)
+Image.BLUE = swap_rgb565(0x001F)
+Image.YELLOW = swap_rgb565(0xFFE0)
+Image.CYAN = swap_rgb565(0x07FF)
+Image.MAGENTA = swap_rgb565(0xF81F)
+Image.ORANGE = swap_rgb565(0xFD20)
+Image.PINK = swap_rgb565(0xF81F)
+
 
 class DisplayLED:
+    buffer = None
     def __init__(self, width=160, height=128, depth=2, additional_bytes=0, pages=1):
         self.my_cb = None
         self.width = width
         self.height = height
-        self.buffer = bytearray( (self.width * int(self.height//pages) * depth) + additional_bytes)
+
+        if self.buffer is None:
+            self.allocate_buffer(depth, additional_bytes, pages)
+        
         if depth == 1:
             self.fb = framebuf.FrameBuffer(self.buffer, self.width, self.height, framebuf.MONO_VLSB)
         elif depth == 2:
             self.fb = framebuf.FrameBuffer(self.buffer, self.width, self.height, framebuf.RGB565)
+
+        self._set_blit_cb(lambda x, y, width, height: tft.blit_buffer(display.buffer, x, y, width, height))
+
+
+    def allocate_buffer(self, depth=2, additional_bytes=0, pages=1):
+        self.buffer = bytearray( (self.width * int(self.height//pages) * depth) + additional_bytes)
+
         
     def get_pixel(self,x,y):
         return self.fb.pixel(x,y)
@@ -238,9 +252,9 @@ class DisplayLED:
             for y in range(iterable.height):
                 for x in range(iterable.width):
                     if color != Image.BLACK:
-                        color_pix = bool(iterable.get_pixel(x, y)) * swap_rgb565(color)
+                        color_pix = bool(iterable.get_pixel(x, y)) * color
                     else:
-                        color_pix = swap_rgb565(color_list[iterable.get_pixel(x, y)])
+                        color_pix = color_list[iterable.get_pixel(x, y)]
 
                     for dy in range(scale):
                         for dx in range(scale):
@@ -268,14 +282,14 @@ class DisplayLED:
 
         y = int((self.height/2) - (8 * size) / 2)
         end = self.width - (len(string) * 8 * size)
-        self.fb.large_text(string, int(x), y, size, swap_rgb565(Image.WHITE if color == Image.BLACK else color))
+        self.fb.large_text(string, int(x), y, size, Image.WHITE if color == Image.BLACK else color)
         self._blit_cb(0, 0, display.height, display.width)
         sleep(delay)
 
         while flag:
             if clear:
                 self.fb.fill(0x0000)
-            self.fb.large_text(string, int(x), y, size, swap_rgb565(Image.WHITE if color == Image.BLACK else color))
+            self.fb.large_text(string, int(x), y, size, Image.WHITE if color == Image.BLACK else color)
             self._blit_cb(0, 0, display.height, display.width)
             x -= 2
             if x < end:
@@ -289,12 +303,16 @@ class DisplayLED:
         end = -len(string) * 10 * 5 
         while True:
             self.fb.fill(0x0000)                     
-            self.fb.large_text(string, x, 48, 5, swap_rgb565(color))
+            self.fb.large_text(string, x, 48, 5, color)
             self._blit_cb()
             x -= 2
             if x < end:           
                 return
             sleep(int(delay/10))
+    
+
+    def blit_buffer(self, buffer, x=0, y=0, width=160, height=128):
+        tft.blit_buffer(buffer, x, y, width, height)
 
     def _set_blit_cb(self, my_cb):
         if my_cb == None:
@@ -308,7 +326,6 @@ class DisplayLED:
 
 
 display = DisplayLED()
-display._set_blit_cb(lambda x, y, width, height: tft.blit_buffer(display.buffer, x, y, width, height))
 
 class MicroBitPin:
     def __init__(self, pin_num):
